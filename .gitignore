@@ -1,0 +1,8 @@
+auto/
+lista_1/
+*.aux
+*.bcf
+*.log
+*.out
+*.xml
+*.tex~

@@ -1,0 +1,373 @@
+\input{preamble.tex}
+
+\begin{document}
+
+\maketitle
+
+Este documento contém algumas anotações adicionais referentes à
+disciplina \emph{Tópicos de Álgebra} ministrada pelo professor Eduardo
+do Nascimento Marcos durante o primeiro semestre de 2023 como parte do
+Programa de Pós-Graduação em Matemática do IME-USP.  O documento em
+questão não tem a proposta de servir como notas de aula para o curso,
+mas apenas como um conjunto de notas adicionais destrinchando algumas
+coisas que foram discutidas durante as aulas.
+
+\section{Aula 1 - 15/03/2023}
+
+\subsection{Módulos}
+
+Nessa subseção relembramos brevemente o significado de módulo sobre um anel.
+Suponha que $A$ seja um anel não necessariamente comutativo, mas contendo uma unidade $1_A$.
+Intuitivamente, um $A$-módulo à esquerda é um grupo abeliano juntamente com uma ação de $A$ sobre esse grupo abeliano.
+
+\begin{defin}
+  Um $A$-módulo à esquerda é um conjunto $M$ munido de duas operações $+: M \times M \to M$ e $\cdot: A \times M \to M$ sujeitas às seguintes condições:
+  \begin{enumerate}
+  \item $M$ é um grupo abeliano com relação à operação $+$;
+    
+  \item $a \cdot (m+n) = a \cdot m + a \cdot n$ para quaisquer $a  \in A$ e $m,\, n \in M$;
+    
+  \item $(a+b) \cdot m = a \cdot m + b \cdot m$ para quaisquer $a,\, b \in A$ e $m \in M$;
+    
+  \item $a \cdot (b \cdot m) = (ab) \cdot m$ para quaisquer $a,\, b \in A$ e $m \in M$;
+    
+  \item $1_A \cdot m = m$ para qualquer $m \in M$.
+  \end{enumerate}
+\end{defin}
+
+Por vezes, alguns autores consideram módulos sobre anéis sem unidade, de forma que a última condição deve ser omitida.
+Nesse contexto, os $A$-módulos que satisfazem a última propriedade são ditos \emph{unitários}.
+
+A definição acima pode ser facilmente alterada para obtermos a noção de um $A$-módulo \emph{à direita}, ou seja, com os escalares de $A$ agindo da forma $m \cdot a$ ao invés de $a \cdot m$.
+Vamos ver agora que, embora os conceitos de módulos à esquerda e à direita não sejam exatamente iguais, existe uma relação próxima entre os dois.
+
+Dado um anel $A$ qualquer, podemos considerar um outro anel $A^{\mathrm{op}}$ cuja operação de soma é a mesma, mas cuja operação de multiplicação é a oposta, ou seja, definimos $a \cdot_{\mathrm{op}} b \coloneqq ba$, onde a justaposição indica a multiplicação já existente em $A$.
+O fato de $A$ já ser um anel garante que essa multiplicação oposta também faça de $A^{\mathrm{op}}$ um anel.
+
+Suponha agora que $M$ seja um $A$-módulo à esquerda.
+Podemos obter um $A^{\mathrm{op}}$-módulo \emph{à direita} $M^{\mathrm{op}}$ considerando a mesma operação de soma, e definido o produto por escalares $\cdot: M \times A^{\mathrm{op}} \to M$ por meio da fórmula $m \cdot a \coloneqq a \cdot m$ para todo $a \in A^{\mathrm{op}}$ e $m \in M$.
+A verifcação de que isso define de fato uma estrutura de $A^{\mathrm{op}}$-módulo à direita é tranquila.
+A parte mais interessante é verificar a ``associatividade'' do produto por escalares.
+Dados $a,\,b \in A^{\mathrm{op}}$ e $m \in M$, temos
+\begin{displaymath}
+  (m \cdot a) \cdot b = b \cdot (m \cdot a) = b \cdot (a \cdot m) = (ba) \cdot m = (a \cdot_{\mathrm{op}} b) \cdot m = m \cdot (a \cdot_{\mathrm{op}} b).
+\end{displaymath}
+
+Analogamente, todo $A$-módulo à direita dá origem a um $A^{\mathrm{op}}$-módulo à esquerda.
+Combinando essas duas construções, e o fato que $(A^{\mathrm{op}})^{\mathrm{op}} = A$, obtemos a equivalência abaixo.
+
+\begin{prop}
+  Existe um isomorfismo de categorias $A-\mathsf{Mod} \cong \mathsf{Mod}-A^{\mathrm{op}}$.
+\end{prop}
+
+Em particular, se $A$ é comutativo, então $A^{\mathrm{op}} = A$, e o resultado acima implica o seguinte:
+
+\begin{corol}
+  Se $A$ é um anel comutativo, existe um isomorfismo de categorias $A-\mathsf{Mod} \cong \mathsf{Mod}-A$.
+\end{corol}
+
+Isso explica porque no caso comutativo é comum ignorarmos a distinção entre módulos à esquerda e à direita.
+
+\subsection{Módulos como ações de um anel}
+
+No início da parte anterior mencionamos que, intuitivamente, um módulo sobre um anel é dado pela ação de um anel sobre  um grupo abeliano.
+Note que a operação de produto por escalares $\cdot : A \times M \to M$ é análoga à operação $G \times X \to X$ usada para definir a ação de um grupo $G$ sobre um conjunto $X$.
+
+Na Teoria de Grupos, um fato interessante é que uma ação de grupo pode ser definida também em termos de um morfismo de grupos $G \to \mathrm{Sym}(X)$, onde $\mathrm{Sym}(X)$ denota o grupo simétrico de $X$, ou seja, o grupo formado por todas as bijeções $X \to X$.
+Nosso objetivo nessa parte é mostrar que um módulo também pode ser pensado como uma família de transformações de um objeto parametrizada pelos elementos do anel em questão.
+
+Se $M$ é um grupo abeliano qualquer, lembre-se que um \emph{endomorfismo} de $M$ é simplesmente um morfismo de grupos $f: M \to M$ do grupo para si mesmo.
+O conjunto de todos esses endomorfismos é denotado por $\End(M)$.
+A operação de soma em $M$ pode ser estendida pontualmente para uma operação análoga em $\End(M)$: dados $f,\, g \in \End(M)$, definimos $f+g: M \to M$ pela fórmula
+\begin{displaymath}
+  (f+g)(m) \coloneqq f(m) + g(m) \quad \forall\, m \in M.
+\end{displaymath}
+Uma verificação rotineira mostra que $f+g$ define realmente um endormofismo do grupo $M$, portanto temos de fato uma operação binária $+: \End(M) \times \End(M) \to \End(M)$.
+As propriedades algébricas da adição em $M$ garantem que essa operação defina uma estrutura de grupo em $\End(M)$, na qual o elemento neutro é dado pelo endormofismo constante $\ct_{M,0}: M \to M$, e na qual o inverso $-f$ de um endomorfismo $f$ é definido pela fórmula
+\begin{displaymath}
+  (-f)(m) \coloneqq -f(m) \quad \forall\, m \in M.
+\end{displaymath}
+
+O mais interessante é que o conjunto $\End(M)$ possui \emph{outra} operação binária advinda da composição de funções.
+É fácil mmostrar que, dados endomorfismos $f,\,g \in \End(M)$, sua composição $g \circ f: M \to M$ define um outro endomorfismo, o que nos permite então definir uma operação binária $\circ: \End(M) \times \End(M) \to \End(M)$.
+Fazendo alguns cálculos diretos podemos mostrar que essa operação goza das seguintes propriedades:
+\begin{enumerate}
+\item $g \circ (f_1 + f_2) = g \circ f_1 + g \circ f_2$ para quaisquer $f_1,\,f_2,\, g \in \End(M)$;
+  
+\item $(g_1 + g_2) \circ f = g_1 \circ f + g_2 \circ f$ para quaisquer $f,\, g_1,\, g_2 \in \End(M)$;
+  
+\item $h \circ (g \circ f) = (h \circ g) \circ f$ para quaisquer $f,\,g,\, h \in \End(M)$;
+  
+\item $\id_M \circ f = f \circ \id_M = f$ para qualquer $f \in \End(M)$.
+\end{enumerate}
+
+Em outras palavras, as operações $+$ e $\circ$ juntas definem uma estrutura de \emph{anel} no conjunto de endomorfismos $\End(M)$.
+Esse é o ingrediente necessário para definirmos uma ação de um anel sobre um grupo abeliano.
+
+\begin{defin}
+  Uma \textbf{ação} de um anel $A$ sobre um grupo abeliano $M$ é um morfismo de anéis $\varphi: A \to \End(M)$.
+\end{defin}
+
+Assim, uma ação de $A$ sobre $M$ define, para cada $a \in A$, um endomorfismo $\varphi_a \coloneqq \varphi(a) \in \End(M)$, e essa coleção parametrizada de endormofismos satisfaz as seguintes propriedades:
+\begin{enumerate}
+\item $\varphi_a + \varphi_b = \varphi_{a+b}$ para quaisquer $a,\,b \in A$;
+  
+\item $\varphi_b \circ \varphi_a = \varphi_{ba}$ para quaisquer $a,\,b \in A$;
+  
+\item $\varphi_{1_A} = \id_M$.
+\end{enumerate}
+
+Suponha agora que $M$ seja um $A$-módulo à esquerda.
+Dado $a \in A$ qualquer, definimos um mapa $\ell_a: M \to M$ pela fórmula
+\begin{displaymath}
+  \ell_a(m) \coloneqq a \cdot m \quad \forall\, m \in M.
+\end{displaymath}
+Esse mapa $\ell_a$ define na verdade um endomorfismo de $M$, pois por hipótese o produto por escalares distribui sobre a soma em $M$, de forma que obtemos um elemento $\ell_a \in \End(M)$.
+
+Variando o elemento $a \in A$ em questão define então um mapa $\ell: A \to \End(M)$ dado pela regra $a \mapsto \ell_a$.
+As propriedades da operação de produtos por escalares garantem que esse mapa seja um morfismo de anéis:
+\begin{itemize}
+\item a igualdade $(a+b) \cdot m$ implica a igualdade $\ell_{a+b} = \ell_a + \ell_b$;
+  
+\item a igualadade $(ab) \cdot m = a \cdot (b \cdot m)$ implica a igualdade $\ell_{ab} = \ell_a \circ \ell_b$;
+  
+\item a igualdade $1_A \cdot m = m$ implica a igualdade $\ell_{1_A} = \id_M$.
+\end{itemize}
+
+Assim, a estrutura de $A$-módulo em $M$ induz uma ação de $A$ sobre $M$ por meio do morfismo $\ell: A \to \End(M)$.
+Em certo sentido, esse morfismo é análogo ao morfismo $G \to \mathrm{Sym}(G)$ que aparece na demonstração do Teorema de Cayley.
+
+Existe também uma construção inversa.
+Dada uma ação $\varphi: A \to \End(M)$ do anel $A$ sobre o grupo abeliano $M$, considere o produto por escalares $\cdot_\varphi: A \times M \to M$ definido pela fórmula
+\begin{displaymath}
+  a \cdot_{\varphi} m \coloneqq \varphi_a(m) \quad \forall\, a \in A, \ \forall\, m \in M.
+\end{displaymath}
+
+O fato de $\varphi$ ser um morfismo de anéis garante que esse produto $\cdot_\varphi$ defina juntamente com a soma $+$ uma estrutura de $A$-módulo à esquerda em $M$:
+\begin{itemize}
+\item a igualdade $\varphi_{a+b} = \varphi_a + \varphi_b$ implica a igualdade $(a+b) \cdot_\varphi m = a \cdot_\varphi m + b \cdot_\varphi m$;
+  
+\item o fato de $\varphi_a$ ser um endomorfismo implica a igualdade $a \cdot_\varphi (m+n) = a \cdot_\varphi m + b \cdot_\varphi n$;
+  
+\item a igualdade $\varphi_{ab} = \varphi_a \circ \varphi_b$ implica a igualdade $(ab) \cdot_\varphi m = a \cdot_\varphi (b \cdot_\varphi m)$;
+  
+\item a igualdade $\varphi_{1_A} = \id_M$ implica a igualdade $1_A \cdot_\varphi m = m$.
+\end{itemize}
+
+É possível mostrar que essas duas construções são inversas uma da outra, o que nos leva ao resultado abaixo.
+
+\begin{teo}
+  A noção de $A$-módulo à esquerda é equivalente à noção de ação de um anel sobre um grupo abeliano.
+\end{teo}
+
+Essa equivalência provavelmente pode ser formulada em termos categóricos, mas eu não sei ao certo como fazer isso.
+É claro que temos a categoria de $A$-módulos à esquerda $A-\mathsf{Mod}$, mas como interpretar morfismos de anéis do tipo $A \to \End(M)$ como objetos de alguma categoria?
+
+\subsection{Álgebras sobre anéis}
+
+Nessa subseção, consideramos outra estrutura algébrica mais rica do que a de módulo sobre um anel.
+Intuitivamente, uma álgebra sobre um anel consiste de um módulo sobre o anel em questão equipado com uma operação adicional de multiplicação que é compatível com as operações e soma produto por escalares já existentes.
+As condições exatas de compatibilidade estão formuladas na definição abaixo.
+
+\begin{defin}
+  Seja $A$ um anel qualquer com unidade.
+  Uma \textbf{$A$-álgebra} consiste de um conjunto $M$ juntamente com três operações $+: M \times M \to M$, $\cdot: A \times M \to M$ e $*: M \times M \to M$ sujeitas às seguintes condições:
+  \begin{enumerate}
+  \item $M$ é um grupo abeliano com relação à operação de soma $+$;
+    
+  \item as operações $+$ e $\cdot$ juntas fazem de $M$ um $A$-módulo à esquerda;
+    
+  \item a operação $*$ é $A$-bilinear.
+  \end{enumerate}
+\end{defin}
+
+A operação $A$-bilinear $*$ é comumante chamada de \emph{multiplicação}, e é mais comum denotar seus valores por justaposição, ou seja, escrevemos $mn$ no lugar de $m*n$.
+Levando em conta essa notação, a condição de $A$-bilinearidade da multiplicação pode ser descrita mais explicitamente em termos das seguintes igualdades:
+\begin{enumerate}
+\item[(i)] $(m_1+m_2)n = m_1n+m_2n$ para quaisquer $m_1,\,m_2,\, n \in M$;
+  
+\item[(ii)] $m(n_1+n_2) = mn_1 + mn_2$ para quaisquer $m,\,n_1,\,n_2 \in M$;
+  
+\item[(iii)] $(a \cdot m)n = a \cdot(mn)$ para quaisquer $a \in A$ e $m,\,n \in M$;
+  
+\item[(iv)] $m(a \cdot n) = a \cdot (mn)$ para quaisquer $a \in A$ e $m,\, n \in M$.
+\end{enumerate}
+
+As duas primeiras propriedades mostram que a multiplicação distribui sobre a soma em ambos os lados, enquanto as duas últimas mostram que a multiplicação é em algum sentido compatível com o produto por escalares, os quais ``transitam livremente por dentro da multiplicação''.
+Veremos logo mais que existem diferentes ``sabores'' de $A$-álgebras caracterizados por propriedades adicionais impostas sobre a operação de multiplicação.
+
+Existe uma definição natural de transformação entre duas álgebras.
+Formalmente, dadas duas $A$-álgebras $M$ e $N$, uma função $f: M \to N$ é um \emph{morfismo de $A$-álgebras} se satisfaz as seguintes condições:
+\begin{enumerate}
+\item $f(m+n) = f(m) + f(n)$ para todos $m,\,n \in M$;
+
+\item $f(a \cdot m) = a \cdot f(m)$ para todo $m \in M$ e $a \in A$;
+
+\item $f(mn) = f(m)f(n)$ para todo $m,\,n \in M$.
+\end{enumerate}
+As duas primeiras condições dizem que $f$ é um morfismo de $A$-módulos, enquanto a terceira diz que $f$ é compatível com as operações de multiplicação existentes em $M$ e $N$.
+
+É tranquilo mostrar que dois morfismos de $A$-álgebras podem ser compostos para definir um novo morfismo de $A$-álgebras, e também que o mapa idêntico $\id_M: M \to M$ define um morfismo de $A$-álgebras.
+Podemos então definir uma categoria $A-\mathsf{Alg}$ cujos objetos são $A$-álgebras e cujos morfismos são morfismos de $A$-álgebras.
+
+Agora introduzimos algumas propriedades adicionais que uma álgebra pode ou não satisfazer.
+\begin{defin}
+  Uma $A$-álgebra $M$ é dita
+  \begin{itemize}
+  \item \textbf{unitária} se existe um elemento $1_M \in M$ tal que as igualdades $1_Mm = m =m1_M$ sejam válidas para todo $m \in M$;
+    
+  \item \textbf{comutativa} se a igualdade $mn=nm$ é válida para quaisquer $m,\, n \in M$;
+    
+  \item \textbf{associativa} se a igualdade $(m_1m_2)m_3 = m_1(m_2m_3)$ é válida para quaisquer $m_1,\,m_2,\,m_3 \in M$.
+  \end{itemize}
+\end{defin}
+
+Vejamos alguns exemplos interessantes relacionados às propriedades acima.
+
+\begin{exem}
+  Dado um anel com unidade qualquer $A$, podemos considerar a $A$-álgebra $M_n(A)$ de matrizes $n \times n$ com entradas em $A$.
+  Essa é uma $A$-álgebra associativa e unitária, sendo a unidade dada pela matriz identidade, mas ela só é comutativa quando $A$ é comutativo e $n$ é igual a $1$.
+\end{exem}
+
+\begin{exem}
+  Seja $M$ um $A$-módulo sobre um anel com unidade.
+  Um endomorfismo de $A$-módulos de $M$ é por definição um morfismo de $A$-módulo do tipo $M \to M$.
+  Considere o conjunto $\End_A(M)$ formado por todos os endomorfismos do $A$-módulo $M$.
+  Note que $\End_A(M)$ é \emph{diferente} do conjunto de endomorfismos $\End(M)$ do grupo abeliano $M$, pois neste último desconsideramos a compatibilidade dos mapas com o produto por escalares.
+  Assim como no caso em que $M$ é apenas um grupo abeliano, a operação de soma em $+$ pode ser estendida para uma operação de soma $+: \End_A(M) \times \End_A(M) \to \End_A(M)$ no conjunto de endomorfismos de $A$-módulos.
+  \begin{displaymath}
+    (S+T)(m) \coloneqq S(m) + T(m) \quad \forall\, m \in M.
+  \end{displaymath}
+
+  No contexto atual em que $M$ é também um $A$-módulo, podemos estender também o produto por escalares para uma operação análoga $\cdot: A \times \End_A(M) \to \End_A(M)$.
+  Formalmente, dados $a \in A$ e $T \in \End_A(M)$, definimos um novo mapa $a \cdot T: M \to M$ pela fórmula
+  \begin{displaymath}
+    (a \cdot T)(m) \coloneqq a \cdot T(m) \quad \forall\, m \in M.
+  \end{displaymath}
+  Uma conta tranquila mostra que $a \cdot T$ define de fato um endomorfismo de $A$-módulos de $M$, o que nos permite considerar então uma operação de produto por escalares $\cdot : A \times \End_A(M) \to \End_A(M)$.
+  Veja que essa operação goza das seguintes propriedades:
+  \begin{enumerate}
+  \item $a \cdot (S+T) = a \cdot S + a \cdot T$, pois em $M$ vale que $a \cdot (m+n) = a \cdot m + a \cdot n$;
+    
+  \item $(a+b) \cdot T = a \cdot T + b \cdot T$, pois em $M$ vale que $(a+b) \cdot m = a \cdot m + b \cdot m$;
+    
+  \item $a \cdot (b \cdot T) = (ab) \cdot T$, pois em $M$ vale que $a \cdot (b \cdot m) = (ab) \cdot m$;
+    
+  \item $1_A \cdot T = T$, pois em $M$ vale que $1_A \cdot m = m$.
+  \end{enumerate}
+  Em outras palavras, quando $M$ é um $A$-módulo, o conjunto de endomorfismos (de módulos!) $\End_A(M)$ carrega por si só uma estrutura de $A$-módulo também.
+
+  Até o momento, as operações de soma e produto por escalar tornam $\End_A(M)$ um $A$-módulo também.
+  O mais interesante é que a operação de composição nos permite definir um tipo de multiplicação em $\End_A(M)$, ou seja, dados dois endomorfismos $S,\, T: M \to M$, definindo $ST \coloneqq S \circ T$ obtemos um novo endormorfismo, e portanto uma operação de multiplicação $\End_A(M) \times \End_A(M) \to \End_A(M)$.
+  Vejamos algumas das propriedades satisfeitas por essa multiplicação.
+  Dados $R,\, S,\, T \in \End_A(M)$, usando as definições anteriores vemos que a igualdade
+  \begin{displaymath}
+    [(R+S)T](m) = (R+S)(T(m)) = R(T(m)) + S(T(m)) = (RT)(m) + (ST)(m) = (RT + ST)(m)
+  \end{displaymath}
+  é válida para todo $m \in M$, o que significa que temos uma igualdade $(R+S)T = RT + ST$ a nível de endomorfismos.
+  Se considerarmos também um escalar $a \in A$, vale que
+  \begin{displaymath}
+    [(a \cdot S)T](m) = (a \cdot S)(T(m)) = a \cdot S(T(m)) = a \cdot (ST)(m) = [a \cdot (ST)](m)
+  \end{displaymath}
+  para todo $m \in M$, portanto temos a igualdade $(a \cdot S)T = a \cdot (ST)$.
+
+  Os dois argumentos acima mostram que a operação de multiplicação (= composição) de endomorfismos é $A$-linear no primeiro argumento.
+  É claro que contas totalmente análogas mostram que também vale a $A$-linearidade no segundo argumento, o que significa que temos na verdade uma multiplicação que é $A$-bilinear.
+  Concluímos enfim que temos de fato uma \emph{$A$-álgebra de endomorfismos $\End_A(M)$}.
+  Como a multiplicação de dois endormofismos é definida em termos da operação de composição, a qual é sabidamente associativa, $\End_A(M)$ é um exemplo de álgebra associativa.
+  Além disso, a função idêntica $\id_M: M \to M$ é um endomorfismo que satisfaz as igualdades $\id_M T = T\id_M = T$ para todo endomorfismo $T$, portanto $\End_A(M)$ é também uma álgebra unitária.
+  Entretanto, em geral não há nenhum motivo que garanta que a igualdade $ST = TS$ seja válida para endomorfismos $S$ e $T$ quaisquer, de forma que a $A$-álgebra $\End_A(M)$ é em geral \emph{não-comutativa}.
+
+  O exemplo anterior pode ser visto como um caso particular desse segundo exemplo.
+  Isso é porque, dado um anel comutativo com unidade $A$, podemos considerar o produto $A^n$ como um $A$-módulo com as operações definidas separadamente em cada coordenada, logo temos também a $A$-álgebra de endomorfismos $\End_A(A^n)$ construída acima.
+  Fixando uma base para $A^n$ visto como $A$-módulo, temos a construção usual da Álgebra Linear que associa a cada endomorfismo $T: M \to M$ uma matriz $[T] \in M_n(A)$.
+  Isso estabelece ao menos uma bijeção entre $\End_A(A^n)$ e $M_n(A)$, e uma conta tediosa mostra que na verdade essa bijeção é compatível com as duas estruturas de $A$-álgebra presentes, de forma que temos na verdade um \emph{isomorfismo} de $A$-álgebras $\End_A(A^n) \cong M_n(A)$.
+\end{exem}
+
+\begin{exem}
+  Seja $A$ um anel comutativo com unidade.
+  Dado um conjunto qualquer $X$, seja $F(X,A)$ o conjunto de todas as funções de tipo $X \to A$.
+  As operações existentes em $A$ podem ser estendidas pontualmente para $F(X,A)$:
+  \begin{itemize}
+  \item dados $f,\, g \in F(X,A)$, definimos $f+g: X \to A$ por $(f+g)(x) \coloneqq f(x) + g(x)$ para todo $x \in X$;
+    
+  \item dados $f \in F(X,A)$ e $a \in A$, definimos $a \cdot f: X \to A$ por $(a \cdot f)(x) \coloneqq af(x)$ para todo $x \in X$;
+    
+  \item dados $f,\, g \in F(X,A)$, definimos $fg: X \to A$ pela fórmula $(fg)(x) \coloneqq f(x)g(x)$ para todo $x \in X$.
+  \end{itemize}
+
+  Novamente, contas rotineiras usando as propriedades algébricas das operações em $A$ nos permitem mostrar que as operações definidas acima munem $F(X,A)$ de uma estrutura de $A$-álgebra.
+  Como a multiplicação em $F(X,A)$ é definida em termos da multiplicação em $A$, a qual é comutativa, $F(X,A)$ é também uma álgebra associativa.
+  Além disso, a função $\ct_{X,1_A}: X \to A$ que é constante e igual a $1_A$ é uma unidade bilateral para a operação de multiplicação em $F(X,A)$, portanto temos uma $A$-álgebra unitária.
+  Por fim, como o anel $A$ é comutativo por hipótese, o mesmo vale para a multiplicação em $F(X,A)$, portanto esta é uma $A$-álgebra comutativa.
+\end{exem}
+
+\subsection{Álgebras via anéis e vice-versa}
+
+Nessa subseção vamos discutir como certos tipos de álgebras podem ser definidas em termos de anéis e vice-versa.
+Se quisermos mais precisos, vamos mostrar que existe uma correspondência entre certas $A$-álgebras e morfismos de anéis cujo domínio é $A$.
+Durante esta subseção, consideraremos apenas anéis comutativos e com unidade, e os morfismos de anéis  serão unitários, ou seja, mapearão a unidade de um anel para a unidade de outro.
+
+Suponha que $M$ seja uma $A$-álgebra unitária, comutativa e associativa.
+Deixando de lado momentaneamente a operação de produto por escalares, as operações de some e multiplicação juntas definem uma estratura de anel comutativo no conjunto $M$.
+Veja que para que isso seja verdade é essencial que a $A$-álgebra inicial seja realmente unitária, comutativa e associativa.
+
+E qual é a relevância da operação de produto por escalares nessa estrutura de anel em $M$?
+Usando tal operação podemos definir uma função $\varphi_M: A \to M$ dada por $\varphi_M(a) \coloneqq a \cdot 1_M$.
+Usando as propriedades algébricas da estrutura de $A$-álgebra em $M$ vemos que valem as seguintes igualdades:
+\begin{itemize}
+\item $\varphi_M(1_A) = 1_A \cdot 1_M = 1_M$;
+  
+\item $\varphi_M(a+b) = (a+b) \cdot 1_M = a \cdot 1_M + b \cdot 1_M = \varphi_M(a) + \varphi_M(b)$ para quaisquer $a,\, b \in A$;
+  
+\item $\varphi_M(ab) = (ab) \cdot 1_M = (a \cdot 1_M)(b \cdot 1_M) = \varphi_M(a)\varphi_M(b)$ para quaisquer $a,\, b \in A$.
+\end{itemize}
+
+Vemos então que $\varphi_M: A \to M$ é um \emph{morfismo de anéis} que é normalmente chamado de \textbf{morfismo estrutural} da $A$-álgebra $M$.
+
+Agora, lembremos que, se $\mathsf{CRing}$ denota a categoria de anéis comutativos e morfismos de anéis, podemos considerar a categoria \emph{co-slice} $A\backslash \mathsf{CRing}$.
+Os objetos dessa categoria são dados por morfismos de anéis cujo domínio é $A$, e, dados dois objetos $A \overset{\varphi}{\to} R$ e $A \overset{\psi}{\to} R'$, um morfismo do primeiro para o segundo é por definição um morfismo de anéis $\theta: R \to R'$ satisfazendo a igualdade $\theta \circ \varphi = \psi$, ou seja, fazendo comutar o triângulo abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    & R
+    \arrow[dd, dashed, "\theta"]
+    \\ A
+    \arrow[ru, "\varphi"]
+    \arrow[rd, "\psi" swap]
+    \\ & R'
+  \end{tikzcd}
+\end{displaymath}
+
+Dada uma $A$-álgebra unitária, comutativa e associativa $M$, podemos encarar o morfismo estrutural $\varphi_M: A \to M$ como um objeto da categoria $A \backslash \mathsf{CRing}$.
+Nosso objetivo é mostrar que essa construção é funtorial.
+
+Suponha então que $N$ seja uma outra $A$-álgbera unitária, associativa e comutativa, e considere um morfismo \emph{unitário} de $A$-álgebras $f: M \to N$, ou seja, a igualdade $f(1_M) = 1_N$ deve ser válida.
+É imediato então que $f$ pode ser visto também como um morfismo de anéis.
+Além disso, para qualquer $a \in A$ temos que
+\begin{displaymath}
+  f(\varphi_M(a)) = f(a \cdot 1_M) = a \cdot f(1_M) = a \cdot 1_N = \varphi_N(a),
+\end{displaymath}
+de forma que $f$ faz comutar o diagrama abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    & M
+    \arrow[dd, dashed, "f"]
+    \\ A
+    \arrow[ru, "\varphi_M"]
+    \arrow[rd, "\varphi_N" swap]
+    \\ & N
+  \end{tikzcd}
+\end{displaymath}
+Isso significa que $f$ pode ser visto então como um morfismo do tipo
+\begin{displaymath}
+  (A \overset{\varphi_M}{\to} M) \overset{f}{\longrightarrow}
+  (A \overset{\varphi_N}{\to} N)
+\end{displaymath}
+na categoria co-slice $A \backslash \mathsf{CRing}$.
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
