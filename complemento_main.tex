@@ -229,7 +229,7 @@ Vejamos alguns exemplos interessantes relacionados às propriedades acima.
   Essa é uma $A$-álgebra associativa e unitária, sendo a unidade dada pela matriz identidade, mas ela só é comutativa quando $A$ é comutativo e $n$ é igual a $1$.
 \end{exem}
 
-\begin{exem}
+\begin{exem}\label{exem:algebra_endomorfismos}
   Seja $M$ um $A$-módulo à esquerda sobre um anel \emph{comutativo} e com unidade.
   Um endomorfismo de $A$-módulos de $M$ é por definição um morfismo de $A$-módulo do tipo $M \to M$.
   Considere o conjunto $\End_A(M)$ formado por todos os endomorfismos do $A$-módulo $M$.
@@ -312,9 +312,14 @@ Vejamos alguns exemplos interessantes relacionados às propriedades acima.
   Fazendo algumas contas simples porém tediosas podemos mostrar que a associação $T \mapsto [T]$ define um isomorfismo de $A$-álgebras $\End_{A}(A^{n}) \cong M_{n}(A)$.
 \end{exem}
 
-\begin{exem}
+\begin{obs}
+  Veremos mais tarde que existem outras maneiras de obtermos estruturas de álgebras em conjutnos de morfismos usando estrutura mais gerais conhecidas como \emph{bimódulos}.
+  Em particular, poderemos então obter estruturas de álgebras em conjuntos de morfismos mesmo sem supor a comutatividade do anel de escalares.
+ \end{obs}
+
+\begin{exem}\label{exem:algebra_funcoes}
   Seja $A$ um anel com unidade.
-  Dado um conjunto qualquer $X$, seja $F(X,A)$ o conjunto de todas as funções de tipo $X \to A$.
+  Dado um conjunto não-vazio qualquer $X$, seja $F(X,A)$ o conjunto de todas as funções de tipo $X \to A$.
   As operações existentes em $A$ podem ser estendidas pontualmente para $F(X,A)$:
   \begin{itemize}
   \item dados $f,\, g \in F(X,A)$, definimos $f+g: X \to A$ por $(f+g)(x) \coloneqq f(x) + g(x)$ para todo $x \in X$;
@@ -325,9 +330,15 @@ Vejamos alguns exemplos interessantes relacionados às propriedades acima.
   \end{itemize}
 
   Novamente, contas rotineiras usando as propriedades algébricas das operações em $A$ nos permitem mostrar que as operações definidas acima munem $F(X,A)$ de uma estrutura de $A$-álgebra.
-  Como a multiplicação em $F(X,A)$ é definida em termos da multiplicação em $A$, a qual é comutativa, $F(X,A)$ é também uma álgebra associativa.
+  Como a multiplicação em $F(X,A)$ é definida em termos da multiplicação em $A$, a qual é associativa, $F(X,A)$ é também uma álgebra associativa.
   Além disso, a função $\ct_{X,1_A}: X \to A$ que é constante e igual a $1_A$ é uma unidade bilateral para a operação de multiplicação em $F(X,A)$, portanto temos uma $A$-álgebra unitária.
-  Por fim, como o anel $A$ é comutativo por hipótese, o mesmo vale para a multiplicação em $F(X,A)$, portanto esta é uma $A$-álgebra comutativa.
+  Note por fim que $F(X,A)$ é comutativa se, e somente se, o anel $A$ é comutativo.
+  Por um lado, se $A$ é comutativo, então para quaisquer duas funções $f,\,g: X \to A$ vale que
+  \begin{displaymath}
+    (fg)(x) = f(x)g(x) = g(x)f(x) = (gf)(x)
+  \end{displaymath}
+  para todo $x \in X$, de forma que $fg=gf$.
+  Por outro lado, dados dois elementos $a,\,b \in A$, podemos considerar as funções constantes $\ct_{X,a},\, \ct_{X,b} \in F(X,A)$, as quais por hipótese satisfazem a igualdade $\ct_{X,a}\ct_{X,b} = \ct_{X,b}\ct_{X,a}$; mas aplicando essas duas funções a qualquer elemento de $X$ concluímos que $ba = ab$.
 \end{exem}
 
 \subsection{Álgebras via anéis e vice-versa}
