@@ -166,7 +166,7 @@ Essa equivalência provavelmente pode ser formulada em termos categóricos, mas 
 \subsection{Álgebras sobre anéis}
 
 Nessa subseção, consideramos outra estrutura algébrica mais rica do que a de módulo sobre um anel.
-Intuitivamente, uma álgebra sobre um anel consiste de um módulo sobre o anel em questão equipado com uma operação adicional de multiplicação que é compatível com as operações e soma produto por escalares já existentes.
+Intuitivamente, uma álgebra sobre um anel consiste de um módulo sobre o anel em questão equipado com uma operação adicional de multiplicação que é compatível com as operações de soma produto por escalares já existentes.
 As condições exatas de compatibilidade estão formuladas na definição abaixo.
 
 \begin{defin}
@@ -214,7 +214,7 @@ Agora introduzimos algumas propriedades adicionais que uma álgebra pode ou não
 \begin{defin}
   Uma $A$-álgebra $M$ é dita
   \begin{itemize}
-  \item \textbf{unitária} se existe um elemento $1_M \in M$ tal que as igualdades $1_Mm = m =m1_M$ sejam válidas para todo $m \in M$;
+  \item \textbf{unitária} se existe um elemento $1_M \in M$ tal que as igualdades $1_Mm = m =m1_M$ valham para todo $m \in M$;
     
   \item \textbf{comutativa} se a igualdade $mn=nm$ é válida para quaisquer $m,\, n \in M$;
     
@@ -224,27 +224,48 @@ Agora introduzimos algumas propriedades adicionais que uma álgebra pode ou não
 
 Vejamos alguns exemplos interessantes relacionados às propriedades acima.
 
-\begin{exem}
+\begin{exem}\label{exem:algebra_matrizes}
   Dado um anel com unidade qualquer $A$, podemos considerar a $A$-álgebra $M_n(A)$ de matrizes $n \times n$ com entradas em $A$.
   Essa é uma $A$-álgebra associativa e unitária, sendo a unidade dada pela matriz identidade, mas ela só é comutativa quando $A$ é comutativo e $n$ é igual a $1$.
 \end{exem}
 
 \begin{exem}
-  Seja $M$ um $A$-módulo sobre um anel com unidade.
+  Seja $M$ um $A$-módulo à esquerda sobre um anel \emph{comutativo} e com unidade.
   Um endomorfismo de $A$-módulos de $M$ é por definição um morfismo de $A$-módulo do tipo $M \to M$.
   Considere o conjunto $\End_A(M)$ formado por todos os endomorfismos do $A$-módulo $M$.
-  Note que $\End_A(M)$ é \emph{diferente} do conjunto de endomorfismos $\End(M)$ do grupo abeliano $M$, pois neste último desconsideramos a compatibilidade dos mapas com o produto por escalares.
+  Note que temos uma inclusão de conjuntos $\End_{A}(M) \subseteq \End(M)$, a qual é em geral estrita, já que um endormofismo de grupos abelianos $M \to M$ não precisa ser compatível com a operação de produto por escalares.
+
   Assim como no caso em que $M$ é apenas um grupo abeliano, a operação de soma em $+$ pode ser estendida para uma operação de soma $+: \End_A(M) \times \End_A(M) \to \End_A(M)$ no conjunto de endomorfismos de $A$-módulos.
   \begin{displaymath}
     (S+T)(m) \coloneqq S(m) + T(m) \quad \forall\, m \in M.
   \end{displaymath}
 
-  No contexto atual em que $M$ é também um $A$-módulo, podemos estender também o produto por escalares para uma operação análoga $\cdot: A \times \End_A(M) \to \End_A(M)$.
+  No contexto atual, podemos também estender a operação de produtos por escalares para o conjunto de endomorfismos.
   Formalmente, dados $a \in A$ e $T \in \End_A(M)$, definimos um novo mapa $a \cdot T: M \to M$ pela fórmula
   \begin{displaymath}
     (a \cdot T)(m) \coloneqq a \cdot T(m) \quad \forall\, m \in M.
   \end{displaymath}
-  Uma conta tranquila mostra que $a \cdot T$ define de fato um endomorfismo de $A$-módulos de $M$, o que nos permite considerar então uma operação de produto por escalares $\cdot : A \times \End_A(M) \to \End_A(M)$.
+  Vejamos que $a \cdot T$ define de fato um endomorfismos de $M$.
+  Primeiramente, dados $m,\,m' \in M$, temos
+  \begin{displaymath}
+    (a \cdot T)(m + m') = a \cdot T(m + m') = a \cdot(T(m) + T(m')) = a \cdot T(m) + a \cdot T(m') = (a \cdot T)(m) + (a \cdot T)(m'),
+  \end{displaymath}
+  portanto $a \cdot T$ é compatível com a operação de soma em $M$.
+  Agora, dados $a' \in A$ e $m \in M$, por um lado temos
+  \begin{displaymath}
+    (a \cdot T)(a' \cdot m) = a \cdot T(a' \cdot m) = a \cdot (a' \cdot T(m)) = (aa') \cdot T(m),
+  \end{displaymath}
+  enquanto por outro
+  \begin{displaymath}
+    a' \cdot ((a \cdot T)(m)) = a' \cdot (a \cdot T(m)) = (a'a) \cdot T(m).
+  \end{displaymath}
+  Como $A$ foi suposto comutativo, vale a igualdade $aa' = a'a$, e comparando então as duas cadeias de igualdades anteriores vemos que
+  \begin{displaymath}
+    (a \cdot T)(a' \cdot m) = a' \cdot ((a \cdot T)(m));
+  \end{displaymath}
+  mostrando que $a \cdot T$ também é compatível com a operação de produto por escalares em $M$.
+
+  O raciocínio acima mostra que temos uma operação bem-definida de produto por escalares $\cdot: A \times \End_{A}(M) \to \End_{A}(M)$
   Veja que essa operação goza das seguintes propriedades:
   \begin{enumerate}
   \item $a \cdot (S+T) = a \cdot S + a \cdot T$, pois em $M$ vale que $a \cdot (m+n) = a \cdot m + a \cdot n$;
@@ -255,37 +276,44 @@ Vejamos alguns exemplos interessantes relacionados às propriedades acima.
     
   \item $1_A \cdot T = T$, pois em $M$ vale que $1_A \cdot m = m$.
   \end{enumerate}
-  Em outras palavras, quando $M$ é um $A$-módulo, o conjunto de endomorfismos (de módulos!) $\End_A(M)$ carrega por si só uma estrutura de $A$-módulo também.
+  Em resumo, as operações $+$ e $\cdot$ juntas definem uma estrutura de $A$-módulo à esquerda em $\End_{A}(M)$.
+  Lembrando que a operação de produto por escalares só ficou bem-definida porque o anel $A$ foi suposto comutativo.
 
-  Até o momento, as operações de soma e produto por escalar tornam $\End_A(M)$ um $A$-módulo também.
-  O mais interesante é que a operação de composição nos permite definir um tipo de multiplicação em $\End_A(M)$, ou seja, dados dois endomorfismos $S,\, T: M \to M$, definindo $ST \coloneqq S \circ T$ obtemos um novo endormorfismo, e portanto uma operação de multiplicação $\End_A(M) \times \End_A(M) \to \End_A(M)$.
-  Vejamos algumas das propriedades satisfeitas por essa multiplicação.
-  Dados $R,\, S,\, T \in \End_A(M)$, usando as definições anteriores vemos que a igualdade
+  Quando estudamos o conjunto de endomorfismos de um grupo abeliano $M$, vimos que, além da operação de soma, tínhamos também a operação de composição, e que as duas operações interagiam corretamente de forma a definir uma estrutura de anel no conjunto de endomorfismos.
+  Essa operação também faz sentido no contexto atual de endomorfismos de $A$-módulos.
+  Dados dois endomorfismos $S,T: M \to M$, é fácil verificar que sua composição $T \circ S: M \to M$ resulta ainda em um endomorfismo de $A$-módulos, de forma que podemos definir uma operação binária $\circ: \End_{A}(M) \times \End_{A}(M) \to \End_{A}(M)$.
+  Assim como no caso de endomorfismos de um grupo abeliano, é possível mostrarmos que essa operação interage bem com a soma, ou seja, para quaisquer endomorfismos $R,\,S,\, T: M \to M$ valem as igualdades
   \begin{displaymath}
-    [(R+S)T](m) = (R+S)(T(m)) = R(T(m)) + S(T(m)) = (RT)(m) + (ST)(m) = (RT + ST)(m)
+    (T + S) \circ R = T \circ R + S \circ R \quad \text{e} \quad T \circ (S+R) = T \circ S + T \circ R.
   \end{displaymath}
-  é válida para todo $m \in M$, o que significa que temos uma igualdade $(R+S)T = RT + ST$ a nível de endomorfismos.
-  Se considerarmos também um escalar $a \in A$, vale que
+
+  Felizmente, essa operação de composição também interage bem com o produto por escalares em ambas variáveis.
+  De fato, dados $a \in A$, $S,\, T \in \End_{A}(M)$ e $m \in M$ quaisquer, por um lado temos
   \begin{displaymath}
-    [(a \cdot S)T](m) = (a \cdot S)(T(m)) = a \cdot S(T(m)) = a \cdot (ST)(m) = [a \cdot (ST)](m)
+    [(a \cdot T) \circ S](m) = (a \cdot T)(S(m)) = a \cdot T(S(m)) = a \cdot (T \circ S)(m) = [a \cdot (T \circ S)](m),
   \end{displaymath}
-  para todo $m \in M$, portanto temos a igualdade $(a \cdot S)T = a \cdot (ST)$.
+  mostrando a igualdade $(a \cdot T) \circ S = a \cdot (T \circ S)$; e por outro temos
+  \begin{displaymath}
+    [T \circ (a \cdot S)](m) = T((a \cdot S)(m)) = T(a \cdot S(m)) = a \cdot T(S(m)) = a \cdot (T \circ S)(m) = [a \cdot (T \circ S)](m),
+  \end{displaymath}
+  mostrando a igualdade $T \circ (a \cdot S) = a \cdot (T \circ S)$.
 
-  Os dois argumentos acima mostram que a operação de multiplicação (= composição) de endomorfismos é $A$-linear no primeiro argumento.
-  É claro que contas totalmente análogas mostram que também vale a $A$-linearidade no segundo argumento, o que significa que temos na verdade uma multiplicação que é $A$-bilinear.
-  Concluímos enfim que temos de fato uma \emph{$A$-álgebra de endomorfismos $\End_A(M)$}.
-  Como a multiplicação de dois endormofismos é definida em termos da operação de composição, a qual é sabidamente associativa, $\End_A(M)$ é um exemplo de álgebra associativa.
-  Além disso, a função idêntica $\id_M: M \to M$ é um endomorfismo que satisfaz as igualdades $\id_M T = T\id_M = T$ para todo endomorfismo $T$, portanto $\End_A(M)$ é também uma álgebra unitária.
-  Entretanto, em geral não há nenhum motivo que garanta que a igualdade $ST = TS$ seja válida para endomorfismos $S$ e $T$ quaisquer, de forma que a $A$-álgebra $\End_A(M)$ é em geral \emph{não-comutativa}.
+  As discussões dos dois últimos parágrafos mostram que a composição define uma operação $A$-bilinear no $A$-módulo $\End_{A}(M)$.
+  Combinando tudo que foi discutido neste exemplo até o momento, concluímos que $\End_{A}(M)$ possui a estrutura de uma \emph{$A$-álgebra}!
 
-  O exemplo anterior pode ser visto como um caso particular desse segundo exemplo.
-  Isso é porque, dado um anel comutativo com unidade $A$, podemos considerar o produto $A^n$ como um $A$-módulo com as operações definidas separadamente em cada coordenada, logo temos também a $A$-álgebra de endomorfismos $\End_A(A^n)$ construída acima.
-  Fixando uma base para $A^n$ visto como $A$-módulo, temos a construção usual da Álgebra Linear que associa a cada endomorfismo $T: M \to M$ uma matriz $[T] \in M_n(A)$.
-  Isso estabelece ao menos uma bijeção entre $\End_A(A^n)$ e $M_n(A)$, e uma conta tediosa mostra que na verdade essa bijeção é compatível com as duas estruturas de $A$-álgebra presentes, de forma que temos na verdade um \emph{isomorfismo} de $A$-álgebras $\End_A(A^n) \cong M_n(A)$.
+  Sendo a operação de multiplicação em $\End_{A}(M)$ definida em termos da composição de funções, a qual é uma operação sabidamente associativa, $\End_{A}(M)$ é um exemplo de $A$-álgebra \emph{associativa}.
+  Além disso, o mapa idêntico $\id_{M}: M \to M$ pertence certamente ao conjunto dos endomorfismos de $A$-módulos e satisfaz as igualdades $\id_{M} \circ T = T \circ \id_{M} = T$ para qualquer outro endomorfismo $T$, o que mostra que $\End_{A}(M)$ é também uma $A$-álgebra \emph{unitária}.
+  Por fim, dados dois endomorfismos $S,\, T \in \End_{A}(M)$, não existe é perfeitamente possível que as composições $T \circ S$ e $S \circ T$ sejam distintas, portanto $\End_{A}(M)$ define em geral uma $A$-álgebra \emph{não-comutativa}.
+
+  Um comentário final é que a álgebra de matrizes do \cref{exem:algebra_matrizes} pode em certos casos ser vista como um caso particular da álgebra de endomorfismos construída no exemplo em questão.
+  Mais precisamente, dado um anel comutativo e com unidade $A$, podemos considerar a estrutura de $A$-módulo à esquerda usual no produto $A^{n}$ para algum inteiro $n \geq 1$.
+  Seguindo a construção do exemplo atual, obtemos a partir disso a $A$-álgebra de endomorfismos $\End_{A}(A^{n})$.
+  Escolhendo uma base para o $A$-módulo $A^{n}$, podemos associar a cada endomorfismo $T: A^{n} \to A^{n}$ uma matriz $[A] \in M_{n}(A)$.
+  Fazendo algumas contas simples porém tediosas podemos mostrar que a associação $T \mapsto [T]$ define um isomorfismo de $A$-álgebras $\End_{A}(A^{n}) \cong M_{n}(A)$.
 \end{exem}
 
 \begin{exem}
-  Seja $A$ um anel comutativo com unidade.
+  Seja $A$ um anel com unidade.
   Dado um conjunto qualquer $X$, seja $F(X,A)$ o conjunto de todas as funções de tipo $X \to A$.
   As operações existentes em $A$ podem ser estendidas pontualmente para $F(X,A)$:
   \begin{itemize}
