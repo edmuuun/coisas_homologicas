@@ -345,13 +345,13 @@ Vejamos alguns exemplos interessantes relacionados às propriedades acima.
 
 Nessa subseção vamos discutir como certos tipos de álgebras podem ser definidas em termos de anéis e vice-versa.
 Se quisermos mais precisos, vamos mostrar que existe uma correspondência entre certas $A$-álgebras e morfismos de anéis cujo domínio é $A$.
-Durante esta subseção, consideraremos apenas anéis comutativos e com unidade, e os morfismos de anéis  serão unitários, ou seja, mapearão a unidade de um anel para a unidade de outro.
+Durante esta subseção, consideraremos apenas anéis comutativos com unidade, e os morfismos de anéis serão unitários, ou seja, mapearão a unidade de um anel para a unidade de outro.
 
-Suponha que $M$ seja uma $A$-álgebra unitária, comutativa e associativa.
-Deixando de lado momentaneamente a operação de produto por escalares, as operações de some e multiplicação juntas definem uma estratura de anel comutativo no conjunto $M$.
-Veja que para que isso seja verdade é essencial que a $A$-álgebra inicial seja realmente unitária, comutativa e associativa.
+Suponha que $M$ seja uma $A$-álgebra unitária e associativa.
+Deixando de lado momentaneamente a operação de produto por escalares, as operações de soma e multiplicação juntas definem uma estrutura de anel em $M$.
+Veja que as hipóteses de que $M$ seja uma $A$-álgebra unitária e associativa são essenciais para que tenhamos realmente uma estrutura de anel.
 
-E qual é a relevância da operação de produto por escalares nessa estrutura de anel em $M$?
+E qual é a relação da operação de produtos por escalares de $A$ para essa estrutura de anel subjacente em $M$?
 Usando tal operação podemos definir uma função $\varphi_M: A \to M$ dada por $\varphi_M(a) \coloneqq a \cdot 1_M$.
 Usando as propriedades algébricas da estrutura de $A$-álgebra em $M$ vemos que valem as seguintes igualdades:
 \begin{itemize}
@@ -361,32 +361,46 @@ Usando as propriedades algébricas da estrutura de $A$-álgebra em $M$ vemos que
   
 \item $\varphi_M(ab) = (ab) \cdot 1_M = (a \cdot 1_M)(b \cdot 1_M) = \varphi_M(a)\varphi_M(b)$ para quaisquer $a,\, b \in A$.
 \end{itemize}
+Assim, a aplicação $\varphi_{M}: A \to M$ define um \emph{morfismo de anéis} o qual é chamado de \textbf{morfismo estrutural de $M$}.
+Esse morfismo possui uma propriedade importante decorrente da $A$-bilinearidade da multiplicação em $M$: dado $a \in A$ e $m \in M$ quaisquer, por um lado temos
+\begin{displaymath}
+  \varphi_{M}(a)m = (a \cdot 1_{M})m = a \cdot (1_{M}m) = a \cdot m,
+\end{displaymath}
+enquanto por outro temos
+\begin{displaymath}
+  m\varphi_{M}(a) = m(a \cdot 1_{M}) = a \cdot (m1_{M}) = a \cdot m.
+\end{displaymath}
+As igualdades acima mostram que os elementos pertencentes à imagem do morfismo estrutural $\varphi_{M}$ comutam com todos os elementos de $M$, ou seja, existe vale a inclusão $\varphi_{M}(A) \subseteq Z(M)$, onde $Z(M)$ denota o \emph{centro} do anel subjacente a $M$.
 
-Vemos então que $\varphi_M: A \to M$ é um \emph{morfismo de anéis} que é normalmente chamado de \textbf{morfismo estrutural} da $A$-álgebra $M$.
-
-Agora, lembremos que, se $\mathsf{CRing}$ denota a categoria de anéis comutativos e morfismos de anéis, podemos considerar a categoria \emph{co-slice} $A\backslash \mathsf{CRing}$.
-Os objetos dessa categoria são dados por morfismos de anéis cujo domínio é $A$, e, dados dois objetos $A \overset{\varphi}{\to} R$ e $A \overset{\psi}{\to} R'$, um morfismo do primeiro para o segundo é por definição um morfismo de anéis $\theta: R \to R'$ satisfazendo a igualdade $\theta \circ \varphi = \psi$, ou seja, fazendo comutar o triângulo abaixo.
+Isso sugere a seguinte construção: considere a categoria $A \backslash \mathsf{Ring}_{Z}$ cujos objetos são pares $(B,\varphi)$, onde $B$ é um anel, e $\varphi: A \to B$ é um morfismo de anéis satisfazendo a condição $f(A) \subseteq Z(B)$.
+Um morfismo do tipo $(B_{1},\varphi_{1}) \to (B_{2},\varphi_{2})$ nessa categoria é dado por um morfismo de anéis $f: B_{1} \to B_{2}$ satisfazendo a igualdade $f \circ \varphi_{1} = \varphi_{2}$, como mostrado no diagrama comutativo abaixo.
 \begin{displaymath}
   \begin{tikzcd}
-    & R
-    \arrow[dd, dashed, "\theta"]
+    & B_{1}
+    \arrow[dd, dashed, "f"]
     \\ A
-    \arrow[ru, "\varphi"]
-    \arrow[rd, "\psi" swap]
-    \\ & R'
+    \arrow[ru, "\varphi_{1}"]
+    \arrow[rd, "\varphi_{2}" swap]
+    \\ & B_{2}
   \end{tikzcd}
 \end{displaymath}
 
-Dada uma $A$-álgebra unitária, comutativa e associativa $M$, podemos encarar o morfismo estrutural $\varphi_M: A \to M$ como um objeto da categoria $A \backslash \mathsf{CRing}$.
-Nosso objetivo é mostrar que essa construção é funtorial.
+Vimos acima que, dada uma $A$-álgebra associativa e unitária $M$, considerando a estrutura de anel subjacente em $M$, usando o produto por escalares definimos o morfismo de anéis estrutural $\varphi_{M}: A \to M$ o qual satisfaz a condição $\varphi_{M}(A) \subsetq Z(M)$.
+Em outras palavras, o par $(M,\varphi_{M})$ define um objeto da categoria $A \backslash \mathsf{Ring}_{Z}$ que acabamos de introduzir.
 
-Suponha então que $N$ seja uma outra $A$-álgbera unitária, associativa e comutativa, e considere um morfismo \emph{unitário} de $A$-álgebras $f: M \to N$, ou seja, a igualdade $f(1_M) = 1_N$ deve ser válida.
-É imediato então que $f$ pode ser visto também como um morfismo de anéis.
-Além disso, para qualquer $a \in A$ temos que
+Suponha agora que $N$ seja uma outra $A$-álgebra unitária e associativa, e considere um morfismo \emph{unitário} de $A$-álgebras $f: M \to N$, ou seja, $f$ é compatível com as operações de soma, multiplicação, produto por escalares, e também preserva unidades, portanto a igualdade $f(1_{M}) = 1_{N}$ é válida.
+Note que para todo $a \in A$ vale que
 \begin{displaymath}
-  f(\varphi_M(a)) = f(a \cdot 1_M) = a \cdot f(1_M) = a \cdot 1_N = \varphi_N(a),
+  f(\varphi_{M}(a)) = f(a \cdot 1_{M}) = a \cdot f(1_{M}) = a \cdot 1_{N} = \varphi_{N}(a).
 \end{displaymath}
-de forma que $f$ faz comutar o diagrama abaixo.
+
+Suponha então que $N$ seja uma outra $A$-álgbera unitária e associativa e, e considere um morfismo \emph{unitário} de $A$-álgebras $f: M \to N$, ou seja, $f$ é compatível com as operação de soma, multiplicação, produto por escalares, e preserva unidades, de forma que vale a igualdade $f(1_{M}) = 1_{N}$.
+Isso significa que, esquecendo por um momento da operação de produto por escalares, podemos encarar $f$ como um morfismo de anéis $A \to M$.
+Note então que, para todo $a \in A$, vale que
+\begin{displaymath}
+  f(\varphi_{M}(a)) = f(a \cdot 1_{M}) = a \cdot f(1_{M}) = a \cdot 1_{N} = \varphi_{N}(a),
+\end{displaymath}
+portanto $f$ faz comutar o diagrama abaixo.
 \begin{displaymath}
   \begin{tikzcd}
     & M
@@ -397,12 +411,37 @@ de forma que $f$ faz comutar o diagrama abaixo.
     \\ & N
   \end{tikzcd}
 \end{displaymath}
-Isso significa que $f$ pode ser visto então como um morfismo do tipo
-\begin{displaymath}
-  (A \overset{\varphi_M}{\to} M) \overset{f}{\longrightarrow}
-  (A \overset{\varphi_N}{\to} N)
-\end{displaymath}
-na categoria co-slice $A \backslash \mathsf{CRing}$.
+
+Podemos então considerar $f$ como um morfismo do tipo $(M,\varphi_{M}) \to (N,\varphi_{N})$ na categoria $A \backslash \mathsf{Ring}_{Z}$.
+Se $A-\mathsf{Alg_{ua}}$ denota a categoria cujos objetos são as $A$-álgebras unitárias e associativas e cujos morfismos são os morfismos unitários de $A$-álgebras, a construção acima nos permite definir um funtor $E: A-\mathsf{Alg_{ua}} \to A \backslash \mathsf{Ring}_{Z}$\footnote{A letra $E$ remete à palavra \emph{estrutural}, já que é justamente a construção do morfismo estrutural a parte importante da definição desse funtor.} que associa a uma $A$-álgebra unitária e associativa $M$ o par $(M,\varphi_{M})$, sendo $\varphi_{M}$ seu morfismo estrutural, e que associa a um morfismo unitário de $A$-álgebras $f: M \to N$ ele mesmo visto agora como morfismo do tipo $f: (M,\varphi_{M}) \to (N,\varphi_{N})$ em $A \backslash \mathsf{Ring}_{Z}$.
+Como essa construção não faz esencialmente nada com os morfismos, é claro que ela preserva composições e identidades, definido de fato um funtor.
+
+Vamos mostrar agora que é possível também definir um funtor no sentido contrário.
+Dado um morfismo de anéis $f: A \to B$ tal que $f(A) \subseteq Z(B)$, o conjunto $B$ já possui operações compatíveis de soma e multiplicação, então se quisermos obter uma estrutura de $A$-álgebra, precisamos antes definir uma operação de produto por escalares de $A$.
+Dados $a \in A$ e $b \in B$, definimos então $a \cdot_{f} b \coloneqq f(a)b$.
+Veja que essa operação goza das seguintes propriedades:
+\begin{itemize}
+\item $a \cdot (b_{1}+b_{2}) = f(a)(b_{1}+b_{2}) = f(a)b_{1} + f(a)b_{2} = a \cdot_{f} b_{1} + a \cdot_{f} b_{2}$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
+  
+\item $(a_{1}+a_{2}) \cdot_{f} b = f(a_{1}+a_{2})b = (f(a_{1})+f(a_{2}))b = f(a_{1})b + f(a_{2})b = a_{1} \cdot_{f} b + a_{2} \cdot_{f} b$ para quaisquer $a_{1},\, a_{2} \in A$ e $b \in B$.
+  
+\item $a_{1} \cdot_{f} (a_{2} \cdot_{f} b) = f(a_{1})(f(a_{2})b) = (f(a_{1})f(a_{2}))b = f(a_{1}a_{2})b = (a_{1}a_{2}) \cdot_{f} b$ para quaisquer $a_{1},\,a_{2} \in A$ e $b \in B$.
+  
+\item $1_{A} \cdot b = f(1_{A})b = 1_{B}b = b$ para qualquer $b \in B$.
+\end{itemize}
+
+Em outras palavras as operações $+$ e $\cdot_{f}$ juntas fazem de $B$ um $A$-módulo.
+Além disso, essa operação de produto por escalares interage bom com a multiplicação existente em $B$, pois valem as seguintes propriedades:
+\begin{itemize}
+\item $(a \cdot b_{1})b_{2} = (f(a)b_{1})b_{2} = f(a)(b_{1}b_{2}) = a \cdot_{f} (b_{1}b_{2})$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
+  
+\item $b_{1}(a \cdot_{f} b_{2}) = b_{1}(f(a)b_{2}) = (b_{1}f(a))b_{2} = (f(a)b_{1})b_{2} = f(a)(b_{1}b_{2}) = a \cdot_{f}(b_{1}b_{2})$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
+\end{itemize}
+Note que na segunda cadeia de igualdades a condição $f(A) \subseteq Z(B)$ foi essencial para podermos comutar $f(a)$ com $b_{1}$.
+Sem essa condição não poderíamos garantir a compatibilidade do produto por escalares $\cdot_{f}$ com a operação de multiplicação já existence em $B$.
+
+Em resumo, a discussão dos dois parágrafos anteriores mostra que as operação de soma e multiplicação do anel $B$ juntamente com o produto por escalares $\cdot_{f}$ fazem de $B$ uma $A$-álgebra.
+Como um anel possui uma unidade multiplicativa, e sua multiplicação é associativa por hipótese, a $A$-álgebra obtida é naturalmente unitária e associativa.
 
 \end{document}
 
