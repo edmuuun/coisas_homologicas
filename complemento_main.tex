@@ -12,9 +12,7 @@ questão não tem a proposta de servir como notas de aula para o curso,
 mas apenas como um conjunto de notas adicionais destrinchando algumas
 coisas que foram discutidas durante as aulas.
 
-\section{Aula 1 - 15/03/2023}
-
-\subsection{Módulos}
+\section{Módulos}
 
 Nessa subseção relembramos brevemente o significado de módulo sobre um anel.
 Suponha que $A$ seja um anel não necessariamente comutativo, mas contendo uma unidade $1_A$.
@@ -163,7 +161,7 @@ O fato de $\varphi$ ser um morfismo de anéis garante que esse produto $\cdot_\v
 Essa equivalência provavelmente pode ser formulada em termos categóricos, mas eu não sei ao certo como fazer isso.
 É claro que temos a categoria de $A$-módulos à esquerda $A-\mathsf{Mod}$, mas como interpretar morfismos de anéis do tipo $A \to \End(M)$ como objetos de alguma categoria?
 
-\subsection{Álgebras sobre anéis}
+\section{Álgebras sobre anéis}
 
 Nessa subseção, consideramos outra estrutura algébrica mais rica do que a de módulo sobre um anel.
 Intuitivamente, uma álgebra sobre um anel consiste de um módulo sobre o anel em questão equipado com uma operação adicional de multiplicação que é compatível com as operações de soma produto por escalares já existentes.
@@ -385,7 +383,7 @@ Um morfismo do tipo $(B_{1},\varphi_{1}) \to (B_{2},\varphi_{2})$ nessa categori
   \end{tikzcd}
 \end{displaymath}
 
-Vimos acima que, dada uma $A$-álgebra associativa e unitária $M$, considerando a estrutura de anel subjacente em $M$, usando o produto por escalares definimos o morfismo de anéis estrutural $\varphi_{M}: A \to M$ o qual satisfaz a condição $\varphi_{M}(A) \subsetq Z(M)$.
+Vimos acima que, dada uma $A$-álgebra associativa e unitária $M$, considerando a estrutura de anel subjacente em $M$, usando o produto por escalares definimos o morfismo de anéis estrutural $\varphi_{M}: A \to M$ o qual satisfaz a condição $\varphi_{M}(A) \subseteq Z(M)$.
 Em outras palavras, o par $(M,\varphi_{M})$ define um objeto da categoria $A \backslash \mathsf{Ring}_{Z}$ que acabamos de introduzir.
 
 Suponha agora que $N$ seja uma outra $A$-álgebra unitária e associativa, e considere um morfismo \emph{unitário} de $A$-álgebras $f: M \to N$, ou seja, $f$ é compatível com as operações de soma, multiplicação, produto por escalares, e também preserva unidades, portanto a igualdade $f(1_{M}) = 1_{N}$ é válida.
@@ -417,31 +415,91 @@ Se $A-\mathsf{Alg_{ua}}$ denota a categoria cujos objetos são as $A$-álgebras 
 Como essa construção não faz esencialmente nada com os morfismos, é claro que ela preserva composições e identidades, definido de fato um funtor.
 
 Vamos mostrar agora que é possível também definir um funtor no sentido contrário.
-Dado um morfismo de anéis $f: A \to B$ tal que $f(A) \subseteq Z(B)$, o conjunto $B$ já possui operações compatíveis de soma e multiplicação, então se quisermos obter uma estrutura de $A$-álgebra, precisamos antes definir uma operação de produto por escalares de $A$.
-Dados $a \in A$ e $b \in B$, definimos então $a \cdot_{f} b \coloneqq f(a)b$.
+Dado um morfismo de anéis $\varphi: A \to B$ tal que $\varphi(A) \subseteq Z(B)$, o conjunto $B$ já possui operações compatíveis de soma e multiplicação, então se quisermos obter uma estrutura de $A$-álgebra, precisamos antes definir uma operação de produto por escalares de $A$.
+Dados $a \in A$ e $b \in B$, definimos então $a \cdot_{\varphi} b \coloneqq \varphi(a)b$.
 Veja que essa operação goza das seguintes propriedades:
 \begin{itemize}
-\item $a \cdot (b_{1}+b_{2}) = f(a)(b_{1}+b_{2}) = f(a)b_{1} + f(a)b_{2} = a \cdot_{f} b_{1} + a \cdot_{f} b_{2}$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
+\item $a \cdot_{\varphi} (b_{1}+b_{2}) = \varphi(a)(b_{1}+b_{2}) = \varphi(a)b_{1} + \varphi(a)b_{2} = a \cdot_{\varphi} b_{1} + a \cdot_{\varphi} b_{2}$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
   
-\item $(a_{1}+a_{2}) \cdot_{f} b = f(a_{1}+a_{2})b = (f(a_{1})+f(a_{2}))b = f(a_{1})b + f(a_{2})b = a_{1} \cdot_{f} b + a_{2} \cdot_{f} b$ para quaisquer $a_{1},\, a_{2} \in A$ e $b \in B$.
+\item $(a_{1}+a_{2}) \cdot_{\varphi} b = \varphi(a_{1}+a_{2})b = (\varphi(a_{1})+\varphi(a_{2}))b = \varphi(a_{1})b + \varphi(a_{2})b = a_{1} \cdot_{\varphi} b + a_{2} \cdot_{\varphi} b$ para quaisquer $a_{1},\, a_{2} \in A$ e $b \in B$.
   
-\item $a_{1} \cdot_{f} (a_{2} \cdot_{f} b) = f(a_{1})(f(a_{2})b) = (f(a_{1})f(a_{2}))b = f(a_{1}a_{2})b = (a_{1}a_{2}) \cdot_{f} b$ para quaisquer $a_{1},\,a_{2} \in A$ e $b \in B$.
+\item $a_{1} \cdot_{\varphi} (a_{2} \cdot_{\varphi} b) = \varphi(a_{1})(\varphi(a_{2})b) = (\varphi(a_{1})\varphi(a_{2}))b = \varphi(a_{1}a_{2})b = (a_{1}a_{2}) \cdot_{\varphi} b$ para quaisquer $a_{1},\,a_{2} \in A$ e $b \in B$.
   
-\item $1_{A} \cdot b = f(1_{A})b = 1_{B}b = b$ para qualquer $b \in B$.
+\item $1_{A} \cdot_{\varphi} b = \varphi(1_{A})b = 1_{B}b = b$ para qualquer $b \in B$.
 \end{itemize}
 
-Em outras palavras as operações $+$ e $\cdot_{f}$ juntas fazem de $B$ um $A$-módulo.
-Além disso, essa operação de produto por escalares interage bom com a multiplicação existente em $B$, pois valem as seguintes propriedades:
+Em outras palavras as operações $+$ e $\cdot_{\varphi}$ juntas fazem de $B$ um $A$-módulo.
+Além disso, as igualdades abaixo mostram que essa ooperação de produto por escalares de $A$ interage bem com a multiplicação já existente em $B$:
 \begin{itemize}
-\item $(a \cdot b_{1})b_{2} = (f(a)b_{1})b_{2} = f(a)(b_{1}b_{2}) = a \cdot_{f} (b_{1}b_{2})$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
+\item $(a \cdot_{\varphi} b_{1})b_{2} = (\varphi(a)b_{1})b_{2} = \varphi(a)(b_{1}b_{2}) = a \cdot_{\varphi} (b_{1}b_{2})$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
   
-\item $b_{1}(a \cdot_{f} b_{2}) = b_{1}(f(a)b_{2}) = (b_{1}f(a))b_{2} = (f(a)b_{1})b_{2} = f(a)(b_{1}b_{2}) = a \cdot_{f}(b_{1}b_{2})$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
+\item $b_{1}(a \cdot_{\varphi} b_{2}) = b_{1}(\varphi(a)b_{2}) = (b_{1}f(a))b_{2} = (\varphi(a)b_{1})b_{2} = \varphi(a)(b_{1}b_{2}) = a \cdot_{\varphi}(b_{1}b_{2})$ para quaisquer $a \in A$ e $b_{1},\, b_{2} \in B$.
 \end{itemize}
-Note que na segunda cadeia de igualdades a condição $f(A) \subseteq Z(B)$ foi essencial para podermos comutar $f(a)$ com $b_{1}$.
-Sem essa condição não poderíamos garantir a compatibilidade do produto por escalares $\cdot_{f}$ com a operação de multiplicação já existence em $B$.
+Note que na segunda cadeia de igualdades a condição $\varphi(A) \subseteq Z(B)$ foi essencial para podermos comutar os termos $\varphi(a)$ e $b_{1}$.
 
-Em resumo, a discussão dos dois parágrafos anteriores mostra que as operação de soma e multiplicação do anel $B$ juntamente com o produto por escalares $\cdot_{f}$ fazem de $B$ uma $A$-álgebra.
-Como um anel possui uma unidade multiplicativa, e sua multiplicação é associativa por hipótese, a $A$-álgebra obtida é naturalmente unitária e associativa.
+Em resumo, a discussão dos dois parágrafos anteriores mostra que as operação de soma e multiplicação do anel $B$ juntamente com o produto por escalares $\cdot_{\varphi}$ fazem de $B$ uma $A$-álgebra, a qual denotaremos por $B^{\varphi}$ daqui para frente.
+Como um anel possui uma unidade multiplicativa, e sua multiplicação é associativa por hipótese, $B^{\varphi}$ é uma $A$-álgebra unitária e associativa.
+
+Vamos mostrar que essa construção se comporta de forma funtorial.
+Considere dois objetos $(B,\varphi)$ e $(C,\psi)$ na categoria $A \backslash \mathsf{Ring}_{Z}$, e considere também um morfismo $\theta: (B,\varphi) \to (C,\psi)$ entre eles.
+Lembre-se que isso significa que $\theta: B \to C$ é um morfismo de anéis satisfazendo a igualdade $\theta \circ \varphi = \psi$.
+Como as operações de soma e multiplicação nas álgebras $B^{\varphi}$ e $C^{\psi}$ são aquelas herdadas dos anéis $B$ e $C$, respectivamente, e $\theta$ é um morfismo de anéis, fica claro que $\theta$ é compatível com essas duas operações.
+Segue disso também que $\theta$ preserva as unidades das álgebras $B^{\varphi}$ e $C^{\psi}$.
+
+Note, além disso, que $\theta$ também é compatível com os produtos por escalares nas duas $A$-álgebras, pois dados $a \in A$ e $b \in B$, vale que
+\begin{displaymath}
+  \theta(a \cdot_{\varphi} b) = \theta(\varphi(a)b) = \theta(\varphi(a))\theta(b) = \psi(a)\theta(b) = a \cdot_{\psi} \theta(b).
+\end{displaymath}
+Concluímos assim que $\theta$ também pode ser visto como um morfismo de $A$-álgebras do tipo $B^{\varphi} \to C^{\psi}$.
+
+Associando a cada objeto $(B,\varphi) \in A \backslash \mathsf{Ring}_{Z}$ a $A$-álgebra $B^{\varphi}$, e associando a um morfismo $\theta: (B,\varphi) \to (C,\psi)$ ele mesmo visto como morfismo de $A$-álgebras $\theta: B^{\varphi} \to C^{\psi}$ obtemos um funtor $F: A \backslash \mathsf{Ring}_{Z} \to A-\mathsf{Alg}_{ua}$.
+
+Associando então a cada par $(B,\varphi) \in A \backslash \mathsf{Ring}_{Z}$ a $A$-álgebra unitária e associativa $B^{\varphi}$, e associando a um morfismo $\theta: (B,\varphi) \to (C,\psi)$ ele mesmo visto agora como um morfismo de $A$-álgebras $\theta: B^{\varphi} \to C^{\psi}$ obtemos um funtor $F: A \backslash \mathsf{Ring}_{Z} \to A-\mathsf{Alg_{ua}}$.
+
+\begin{teo}\label{eq:equiv_algebras_e_setas_aneis}
+  Os funtores $E$ e $F$ definidos acima são inversos e definem, portanto, um isomorfismo de categorias $A-\mathsf{Alg_{ua}} \cong A \backslash \mathsf{Ring}_{Z}$.
+\end{teo}
+
+\begin{proof}
+  Dada uma $A$-álgebra unitária e associativa $B$, temos que mostrar que $B^{\varphi_{B}} = B$, onde $\varphi_{B}: A \to B$ é o morfismo estrutural da álgebra.
+  Lembre-se que as operações de soma e multiplicação de $B^{\varphi}$ são as operações correspondentes do anel subjacente a $B$, e essas são exatamente as operações correspondentes da $A$-álgebra $B$ inicial; ou seja, as operações de soma e multiplicação das $A$-álgebras $B$ e $B^{\varphi_{B}}$ são iguais.
+  O mesmo raciocínio mostra que o mesmo é verdade para as unidades multiplicativas.
+  Resta apenas mostrar que as operações de produto por escalares também são iguais.
+  De fato, dados $a \in A$ e $b \in B$, pelas definições temos
+  \begin{displaymath}
+    a \cdot_{\varphi_{B}} b = \varphi_{B}(a)b = (a \cdot 1_{B}) b = a \cdot (1_{B}b) = a \cdot b.
+  \end{displaymath}
+  Concluímos então que $F \circ E$ é igual ao funtor identidade da categoria $A-\mathsf{Alg_{ua}}$.
+
+  Vamos agora analisar a composição $E \circ F$.
+  Dado um objeto $(B,\varphi) \in A \backslash \mathsf{Ring}_{Z}$, queremos mostrar a igualdade $(B^{\varphi},\varphi_{B^{\varphi}})$, onde $\varphi_{B^{\varphi}}: A \to B^{\varphi}$ é o morfismo estrutural da $A$-álgebra induzida $B^{\varphi}$.
+  Lembre-se que o anel subjacente à $A$-álgebra $B^{\varphi}$ é exatamente o anel $B$, portanto a igualdade desejada se reduz essencialmente à igualdade dos morfismos de anéis $\varphi$ e $\varphi_{B^{\varphi}}$.
+  Essa igualdade é válida pois, dado $a \in A$, por definição temos
+  \begin{displaymath}
+    \varphi_{B^{\varphi}}(a) = a \cdot_{\varphi} 1_{B^{\varphi}} = \varphi(a)1_{B} = \varphi(a)\varphi(1_{A}) = \varphi(a).
+  \end{displaymath}
+  Isso mostra que $\varphi = \varphi_{B^{\varphi}}$, portanto $(B,\varphi) = (B^{\varphi},\varphi_{B^{\varphi}})$, e disso concluímos que $E \circ F$ é igual ao funtor idêntico da categoria $A \backslash \mathsf{Ring}_{Z}$.
+\end{proof}
+
+\begin{obs}[O caso comutativo]
+  A discussão anterior e o \cref{teo:equiv_algebras_e_setas_aneis} ficam um pouco mais simples se trabalharmos apenas com álgebras comutativas.
+  Se $B$ é uma $A$-álgebra unitária, associativa e também comutativa, então o anel subjacente a $B$ é também comutativo.
+  Veja então que a condição $\varphi(A) \subseteq Z(B)$ sobre o morfismo estrutural é trivial nesse caso, pois a comutatividade de $B$ implica $Z(B) = B$.
+
+  Essa trivialidade se reflete na construção inversa também.
+  Nesse caso, se $B$ é um anel comutativo, e $f: A \to B$ é um morfismo (unitário) de anéis, então o produto por escalares $ a \cdot_{f} b \coloneqq f(a)b$ é sempre compatível com as operações do anel e define, portanto, uma estrutura de $A$-álgebra no conjunto $B$.
+
+  Podemos então resumir esse caso mais simples no resultado abaixo.
+
+  \begin{teo}
+    Existe um isomorfismo entre a categoria $A-\mathsf{Alg_{uac}}$ das $A$-álgebras unitárias, associativas e comutativas e a categoria $A \backslash \mathsf{CRing}$\footnote{Embora tenhamos usado a notação de categorias co-slice, cabe apontar que $A \backslash \mathsf{CRing}$ como definida \emph{não} é uma categoria co-slice, já que a princípio podemos ter $A \not\in \mathsf{CRing}$.} cujos objetos são morfismos de anéis do tipo $A \to B$, sendo $B$ comutativo.
+  \end{teo}
+\end{obs}
+
+% \section{Equivalências entre categorias}
+% \label{sec:equiv_categorias}
+
+% Nessa seção introduzimos a noção de equivalência entre duas categorias, apresentamos uma formulação alternativa em termos de propriedades ``conjuntistas'' de um funtor, e então usamos essa outra formulação para exibir algumas equivalências surpreendentes entre categorias de módulos.
 
 \end{document}
 
