@@ -496,10 +496,116 @@ Associando então a cada par $(B,\varphi) \in A \backslash \mathsf{Ring}_{Z}$ a 
   \end{teo}
 \end{obs}
 
-% \section{Equivalências entre categorias}
-% \label{sec:equiv_categorias}
+\section{Equivalências entre categorias}
+\label{sec:equiv_categorias}
 
-% Nessa seção introduzimos a noção de equivalência entre duas categorias, apresentamos uma formulação alternativa em termos de propriedades ``conjuntistas'' de um funtor, e então usamos essa outra formulação para exibir algumas equivalências surpreendentes entre categorias de módulos.
+Nessa seção introduzimos a noção de equivalência entre duas categorias, apresentamos uma formulação alternativa em termos de propriedades ``conjuntistas'' de um funtor, e então usamos essa outra formulação para exibir algumas equivalências surpreendentes entre categorias de módulos.
+
+\begin{defin}
+  Um funtor $F: \mathsf{C} \to \mathsf{D}$ é dito uma \textbf{equivalência de categorias} se existe um funtor $G: \mathsf{D} \to \mathsf{C}$ tal que $G \circ F \simeq \id_{\mathsf{C}}$ e $F \circ G \simeq \id_{\mathsf{C}}$.
+  Nesse caso, o funtor $G$ é chamado de um \textbf{quase-inverso} de $F$.
+\end{defin}
+
+O principal resultado é que a propriedade de um funtor $F: \mathsf{C} \to \mathsf{D}$ ser uma equivalência de categorias pode ser descrita inteiramente em termos de propriedades do funtor $F$ sem a necessidade de falar de um funtor do tipo $\mathsf{D} \to \mathsf{C}$.
+Isso é análogo ao fato de uma bijeção pode ser descrita como uma injeção e uma sobrejeção.
+
+Antes de enunciarmos e provarmos o resultado de fato, precisamos de algumas definições auxiliares.
+
+\begin{defin}
+  Dizemos que um funtor $F: \mathsf{C} \to \mathsf{D}$ é
+  \begin{enumerate}
+  \item[(a)] \textbf{denso} se, para todo $d \in \mathsf{D}$, existe algum $c \in \mathsf{C}$ tal que $d \cong F(c)$;\footnote{Por vezes, um funtor denso também é dito \textbf{essencialmente sobrejetivo}.}
+    
+  \item[(b)] \textbf{fiel} se, para quaisquer dois objetos $a,\,b \in \mathsf{C}$, a função $F_{a,b}: \mathsf{C}(a,b) \to \mathsf{D}(F(a),F(b))$ for injetiva;
+    
+  \item[(c)] \textbf{pleno} se, para quaisquer dois objetos $a,\,b \in \mathsf{C}$, a função $F_{a,b}: \mathsf{C}(a,b) \to \mathsf{D}(F(a),F(b))$ for sobrejetiva.
+  \end{enumerate}
+\end{defin}
+
+Agora temos os ingredientes para enunciar e demonstrar o resultado desejado.
+
+\begin{teo}
+  \label{teo:equiv_sse_denso_fiel_pleno}
+  Dado um funtor $F: \mathsf{C} \to \mathsf{D}$, as seguintes afirmações são equivalentes:
+  \begin{enumerate}
+  \item[(a)] $F$ é uma equivalência de categorias;
+    
+  \item[(b)] $F$ é denso, fiel e pleno.
+  \end{enumerate}
+\end{teo}
+
+\begin{proof}
+  Suponha primeiro que $F$ seja uma equivlência, e considere então um funtor quase-inverso $G: \mathsf{D} \to \mathsf{C}$.
+  Existe então um isomorfismo natural $\theta: F \circ G \Rightarrow \id_{\mathsf{D}}$.
+  Assim, dado $d \in \mathsf{D}$, temos um isomorfismo $\theta_{d}: F(G(d)) \to d$, logo, se definirmos $c \coloneqq G(d)$, vale que $F(c) \cong d$; mostrando a densidade do funtor $F$.
+
+  Suponha agora que tenhamos dois morfismos $f,\, g: a \to b$ em $\mathsf{C}$ tais que $F(f) = F(g)$.
+  Se $\psi: G \circ F \Rightarrow \id_{\mathsf{C}}$ denota um isomorfismo natural, então por naturalidade temos os diagramas comutativos abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.25cm]
+      G(F(a))
+      \arrow[r, "G(F(f))"]
+      \arrow[d, "\psi_{a}" swap]
+      & G(F(b))
+      \arrow[d, "\psi_{b}"]
+      \\ a
+      \arrow[r, "f" swap]
+      & b
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}[column sep=1.25cm]
+      G(F(a))
+      \arrow[r, "G(F(g))"]
+      \arrow[d, "\psi_{a}" swap]
+      & G(F(b))
+      \arrow[d, "\psi_{b}"]
+      \\ a
+      \arrow[r, "g" swap]
+      & b
+    \end{tikzcd}
+  \end{displaymath}
+  Levando em conta que $\psi_{a}$ e $\psi_{b}$ são isomorfismos, os diagramas acima nos permitem escrever
+  \begin{displaymath}
+    f = \psi_{b} \circ G(F(f)) \circ \psi_{a}^{-1} \quad \text{e} \quad g = \psi_{b} \circ G(F(g)) \circ \psi_{a}^{-1},
+  \end{displaymath}
+  mas como $F(f) = F(g)$, também vale que $G(F(f)) = G(F(g))$, portanto segue diretamente das duas igualdades acima que $f = g$.
+
+  Considere agora dois objetos $a,\, b \in \mathsf{C}$, e um morfismo $h: F(a) \to F(b)$.
+  Queremos mostrar a existência de um morfismo $f: a \to b$ tal que $h = F(f)$.
+  Lembre-se que temos isomorfismos $\psi_{a}: G(F(a)) \to a$ e $\psi_{b}: G(F(b)) \to b$, portanto faz sentido considerarmos o morfismo $f: a \to b$ definido pela composição $f \coloneqq \psi_{b} \circ G(h) \circ \psi_{a}^{-1}$, conforme mostrado no diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}
+      G(F(a))
+      \arrow[r, "G(h)"]
+      & G(F(b))
+      \arrow[d, "\psi_{b}"]
+      \\ a
+      \arrow[u, "\psi_{a}^{-1}"]
+      \arrow[r, dashed, "f" swap]
+      & b
+    \end{tikzcd}
+  \end{displaymath}
+  A naturalidade do isomorfismo garante que temos o diagrama comtuativo abaixo,
+  \begin{displaymath}
+    \begin{tikzcd}
+      G(F(a))
+      \arrow[r, "G(F(f))"]
+      \arrow[d, "\psi_{a}" swap]
+      & G(F(b))
+      \arrow[d, "\psi_{b}"]
+      \\ a
+      \arrow[r, "f" swap]
+      & b
+    \end{tikzcd}
+  \end{displaymath}
+  portanto podemos escrever $f = \psi_{b} \circ G(F(f)) \circ \psi_{a}^{-1}$.
+  Comparando as duas expressões para $f$ vemos que
+  \begin{displaymath}
+    \psi_{b} \circ G(h) \circ \psi_{a}^{-1} = \psi_{b} \circ G(F(f)) \circ \psi_{a}^{-1},
+  \end{displaymath}
+  e cancelando os isomorfismos $\psi_{b}$ e $\psi_{a}^{-1}$ de ambos os lados concluímos que $G(h) = G(F(f))$.
+  Ora, como $G$ também é uma equivalência, segue do que já provamos que $G$ é fiel, portanto a última igualdade implica $h = F(f)$ conforme desejado.  
+\end{proof}
 
 \end{document}
 
