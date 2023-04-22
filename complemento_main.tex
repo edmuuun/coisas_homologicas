@@ -456,7 +456,7 @@ Associando a cada objeto $(B,\varphi) \in A \backslash \mathsf{Ring}_{Z}$ a $A$-
 
 Associando então a cada par $(B,\varphi) \in A \backslash \mathsf{Ring}_{Z}$ a $A$-álgebra unitária e associativa $B^{\varphi}$, e associando a um morfismo $\theta: (B,\varphi) \to (C,\psi)$ ele mesmo visto agora como um morfismo de $A$-álgebras $\theta: B^{\varphi} \to C^{\psi}$ obtemos um funtor $F: A \backslash \mathsf{Ring}_{Z} \to A-\mathsf{Alg_{ua}}$.
 
-\begin{teo}\label{eq:equiv_algebras_e_setas_aneis}
+\begin{teo}\label{teo:equiv_algebras_e_setas_aneis}
   Os funtores $E$ e $F$ definidos acima são inversos e definem, portanto, um isomorfismo de categorias $A-\mathsf{Alg_{ua}} \cong A \backslash \mathsf{Ring}_{Z}$.
 \end{teo}
 
@@ -535,76 +535,191 @@ Agora temos os ingredientes para enunciar e demonstrar o resultado desejado.
 \end{teo}
 
 \begin{proof}
-  Suponha primeiro que $F$ seja uma equivlência, e considere então um funtor quase-inverso $G: \mathsf{D} \to \mathsf{C}$.
-  Existe então um isomorfismo natural $\theta: F \circ G \Rightarrow \id_{\mathsf{D}}$.
-  Assim, dado $d \in \mathsf{D}$, temos um isomorfismo $\theta_{d}: F(G(d)) \to d$, logo, se definirmos $c \coloneqq G(d)$, vale que $F(c) \cong d$; mostrando a densidade do funtor $F$.
+  Suponha primeiro que $F$ seja uma equivlência, e considere um funtor quase-inverso $G: \mathsf{D} \to \mathsf{C}$.
+  Existe então um isomorfismo natural $\psi$ do funtor idêntico $\id_{\mathsf{D}}$ para a composição $F \circ G$.
+  Assim, para cada $d \in \mathsf{D}$ temos um isomorfismo $\psi_{d}: d \to F(G(d))$, logo, se definirmos $c \coloneqq G(d)$, vale que $F(c) \cong d$; mostrando a densidade do funtor $F$.
 
-  Suponha agora que tenhamos dois morfismos $f,\, g: a \to b$ em $\mathsf{C}$ tais que $F(f) = F(g)$.
-  Se $\psi: G \circ F \Rightarrow \id_{\mathsf{C}}$ denota um isomorfismo natural, então por naturalidade temos os diagramas comutativos abaixo.
+  Suponha agora que tenhamos dois morfismos $f,\, g: c_{1} \to c_{2}$ em $\mathsf{C}$ tais que $F(f) = F(g)$.
+  Se $\varphi$ denota um isomorfismo natural da identidade $\id_{\mathsf{C}}$ para a composição $G \circ F$, então por naturalidade temos os diagramas comutativos abaixo.
   \begin{displaymath}
     \begin{tikzcd}[column sep=1.25cm]
-      G(F(a))
+      G(F(c_{1}))
       \arrow[r, "G(F(f))"]
-      \arrow[d, "\psi_{a}" swap]
-      & G(F(b))
-      \arrow[d, "\psi_{b}"]
-      \\ a
+      & G(F(c_{2}))
+      \\ c_{1}
       \arrow[r, "f" swap]
-      & b
+      \arrow[u, "\varphi_{c_{1}}"]
+      & c_{2}
+      \arrow[u, "\varphi_{c_{2}}" swap]
     \end{tikzcd}
     \qquad
     \begin{tikzcd}[column sep=1.25cm]
-      G(F(a))
+      G(F(c_{1}))
       \arrow[r, "G(F(g))"]
-      \arrow[d, "\psi_{a}" swap]
-      & G(F(b))
-      \arrow[d, "\psi_{b}"]
-      \\ a
+      & G(F(c_{2}))
+      \\ c_{1}
       \arrow[r, "g" swap]
-      & b
+      \arrow[u, "\varphi_{c_{1}}"]
+      & c_{2}
+      \arrow[u, "\varphi_{c_{2}}" swap]
     \end{tikzcd}
   \end{displaymath}
-  Levando em conta que $\psi_{a}$ e $\psi_{b}$ são isomorfismos, os diagramas acima nos permitem escrever
+  Levando em conta que $\varphi_{c_{1}}$ e $\varphi_{c_{2}}$ são isomorfismos, os diagramas acima nos permitem escrever
   \begin{displaymath}
-    f = \psi_{b} \circ G(F(f)) \circ \psi_{a}^{-1} \quad \text{e} \quad g = \psi_{b} \circ G(F(g)) \circ \psi_{a}^{-1},
+    f = \varphi_{c_{2}}^{-1} \circ G(F(f)) \circ \varphi_{c_{1}}  \quad \text{e} \quad g = \varphi_{c_{2}}^{-1} \circ G(F(g)) \circ \varphi_{c_{1}},
   \end{displaymath}
-  mas como $F(f) = F(g)$, também vale que $G(F(f)) = G(F(g))$, portanto segue diretamente das duas igualdades acima que $f = g$.
+  mas como $F(f) = F(g)$, também vale que $G(F(f)) = G(F(g))$, portanto segue das duas igualdades acima que $f = g$.
 
-  Considere agora dois objetos $a,\, b \in \mathsf{C}$, e um morfismo $h: F(a) \to F(b)$.
-  Queremos mostrar a existência de um morfismo $f: a \to b$ tal que $h = F(f)$.
-  Lembre-se que temos isomorfismos $\psi_{a}: G(F(a)) \to a$ e $\psi_{b}: G(F(b)) \to b$, portanto faz sentido considerarmos o morfismo $f: a \to b$ definido pela composição $f \coloneqq \psi_{b} \circ G(h) \circ \psi_{a}^{-1}$, conforme mostrado no diagrama abaixo.
+  Considere agora dois objetos $c_{1},\, c_{2} \in \mathsf{C}$, e um morfismo $g: F(c_{1}) \to F(c_{2})$.
+  Queremos mostrar a existência de um morfismo $f: c_{1} \to c_{2}$ tal que $F(f) = g$.
+  Lembre-se que temos isomorfismos $\varphi_{c_{1}}: c_{1} \to G(F(c_{1}))$ e $\varphi_{c_{2}}: c_{2} \to G(F(c_{2}))$, portanto faz sentido considerarmos o morfismo $f: c_{1} \to c_{2}$ definido pela composição $f \coloneqq \varphi_{c_{2}}^{-1} \circ G(g) \circ \varphi_{c_{1}}^{-1}$, o qual faz comutar o quadrado abaixo.
   \begin{displaymath}
     \begin{tikzcd}
-      G(F(a))
-      \arrow[r, "G(h)"]
-      & G(F(b))
-      \arrow[d, "\psi_{b}"]
-      \\ a
-      \arrow[u, "\psi_{a}^{-1}"]
+      G(F(c_{1}))
+      \arrow[r, "G(g)"]
+      & G(F(c_{2}))
+      \\ c_{1}
+      \arrow[u, "\varphi_{c_{1}}"]
       \arrow[r, dashed, "f" swap]
-      & b
+      & c_{2}
+      \arrow[u, "\varphi_{c_{2}}" swap]
     \end{tikzcd}
   \end{displaymath}
-  A naturalidade do isomorfismo garante que temos o diagrama comtuativo abaixo,
+  A naturalidade do isomorfismo $\varphi$ garante que temos o diagrama comtuativo abaixo,
   \begin{displaymath}
-    \begin{tikzcd}
-      G(F(a))
+    \begin{tikzcd}[column sep=1.25cm]
+      G(F(c_{1}))
       \arrow[r, "G(F(f))"]
-      \arrow[d, "\psi_{a}" swap]
-      & G(F(b))
-      \arrow[d, "\psi_{b}"]
-      \\ a
+      & G(F(c_{2}))
+      \\ c_{1}
       \arrow[r, "f" swap]
-      & b
+      \arrow[u, "\varphi_{c_{1}}"]
+      & c_{2}
+      \arrow[u, "\varphi_{c_{2}}" swap]
     \end{tikzcd}
   \end{displaymath}
-  portanto podemos escrever $f = \psi_{b} \circ G(F(f)) \circ \psi_{a}^{-1}$.
-  Comparando as duas expressões para $f$ vemos que
+  portanto podemos escrever também $f = \varphi_{c_{2}}^{-1} \circ G(F(f)) \circ \varphi_{c_{1}}$.
+  Comparando as duas expressões para $f$ concluímos que
   \begin{displaymath}
-    \psi_{b} \circ G(h) \circ \psi_{a}^{-1} = \psi_{b} \circ G(F(f)) \circ \psi_{a}^{-1},
+    \varphi_{c_{2}}^{-1} \circ G(g) \circ \varphi_{c_{1}} = \varphi_{c_{2}}^{-1} \circ G(F(f)) \circ \varphi_{c_{1}},
   \end{displaymath}
-  e cancelando os isomorfismos $\psi_{b}$ e $\psi_{a}^{-1}$ de ambos os lados concluímos que $G(h) = G(F(f))$.
-  Ora, como $G$ também é uma equivalência, segue do que já provamos que $G$ é fiel, portanto a última igualdade implica $h = F(f)$ conforme desejado.  
+  o que implica $G(g) = G(F(f))$, já que podemos cancelar os isomorfismos $\varphi_{c_{1}}$ e $\varphi_{c_{2}}^{-1}$ que aparecem acima.
+  Ora, como $G$ também é uma equivalência de categorias, segue do que já provamos que $G$ é fiel, portanto essa última igualdade implica $g = F(f)$ conforme desejado.
+
+  Suponha agora que $F$ seja denso, fiel e pleno.
+  Nossa tarefa é então construir um funtor $G: \mathsf{D} \to \mathsf{C}$ que seja um quase-inverso de $F$.
+  Usando a densidade de $F$ podemos \emph{escolher} para cada objeto $d \in \mathsf{D}$ um objeto corresondente $c_{d} \in \mathsf{C}$ para o qual existe um isomorfismo $\psi_{d}: d \overset{\cong}{\longrightarrow} F(c_{d})$.
+  Tendo fixado essa família de escolhas, definimos então $G(d) \coloneqq c_{d}$ para todo $d \in \mathsf{D}$.
+  Note que cada $\psi_{d}$ define então um isomorfismo $d \overset{\cong}{\longrightarrow} F(G(d))$.
+
+  Vamos agora definir a ação de $G$ nos morfismos da categoria $\mathsf{D}$.
+  Dados objetos $d_{1},\, d_{2} \in \mathsf{D}$ e um morfismo $g: d_{1} \to d_{2}$, considere os objetos $c_{d_{1}},\, c_{d_{2}} \in \mathsf{C}$ escolhidos de tal forma a satisfazerem $d_{1} \cong F(c_{d_{1}})$ e $d_{2} \cong F(c_{d_{2}})$.
+  Usando os isomorfismo $\psi_{d_{1}}$ e $\psi_{d_{2}}$ podemos definir o morfismo $\psi_{d_{2}} \circ g \circ \psi_{d_{1}}^{-1}: F(G(d_{1})) \to F(G(d_{2}))$ como mostrado no diagrama abaixo.
+  \begin{displaymath}
+    \begin{tikzcd}[column sep=1.5cm]
+      F(G(d_{1}))
+      \arrow[r, dashed, "\psi_{d_{2}} \circ g \circ \psi_{d_{1}}^{-1}"]
+      \arrow[d, "\psi_{d_{1}}^{-1}" swap]
+      & F(G(d_{2}))
+      \\ d_{1}
+      \arrow[r, "g" swap]
+      & d_{2}
+      \arrow[u, "\psi_{d_{2}}" swap]
+    \end{tikzcd}
+  \end{displaymath}
+  Lembre-se agora que, sendo $F$ fiel e pleno, \emph{existe} um \emph{único} morfismo $f: G(d_{1}) \to G(d_{2})$ tal que $F(f) = \psi_{d_{2}} \circ g \circ \psi_{d_{1}}^{-1}$, e definimos então $G(g) \coloneqq \alpha$.
+  Em outras palavras, $G(g)$ é o \emph{único} morfismo do tipo $G(d_{1}) \to G(d_{2})$  a satisfazer igualdade
+  \begin{displaymath}
+    F(G(g)) = \psi_{d_{2}} \circ g \circ \psi_{d_{1}}^{-1}.
+  \end{displaymath}
+  Dito de outra forma, $G(g)$ é o único morfismo cuja ``imagem'' $F(G(g)): F(G(d_{1})) \to F(G(d_{2}))$ faz comutar o quadrado abaixo.
+  \begin{equation}
+    \label{eq:definicao_quase-inverso_morfismos}
+    \begin{tikzcd}[column sep=1.5cm]
+      F(G(d_{1}))
+      \arrow[r, "F(G(g))"]
+      & F(G(d_{2}))
+      \\ d_{1}
+      \arrow[u, "\psi_{d_{1}}"]
+      \arrow[r, "g" swap]
+      & d_{2}
+      \arrow[u, "\psi_{d_{2}}" swap]
+    \end{tikzcd}
+  \end{equation}
+
+  Usando as caracterizações acima é relativamente fácil mostrar que essa definição de $G$ nos morfismos realmente resulta em um funtor.
+  Dado um objeto $d \in \mathsf{D}$, a fim de mostrarmos que $G(\id_{d}) = \id_{G(d)}$, basta mostrarmos que $\id_{G(d)}$ satisfaz a igualdade
+  \begin{displaymath}
+    F(\id_{G(d)}) = \psi_{d} \circ \id_{F(G(d))} \circ \psi_{d}^{-1} = \id_{F(G(d))}.
+  \end{displaymath}
+  Ora, a igualdade $F(\id_{G(d)}) = \id_{F(G(d))}$ segue imediatamente do fato de que $F$ é um funtor e, portanto, preserva identidades.
+
+  A demonstração de que $G$ preserva composições é análoga.
+  Dados morfismos $g_{1}: d_{1} \to d_{2}$ e $g_{2}: d_{2} \to d_{3}$ em $\mathsf{D}$, sabemos que por definição $G(g_{2} \circ g_{1})$ é o único morfismo do seu tipo a satisfazer a equação
+  \begin{displaymath}
+    F(G(g_{2} \circ g_{1})) = \psi_{d_{3}} \circ (g \circ f) \circ \psi_{d_{1}}^{-1},
+  \end{displaymath}
+  mas a composição $G(g_{2}) \circ G(g_{1})$ também satisfaz isso como mostra a sequência de igualdades abaixo:
+  \begin{align*}
+    F(G(g_{2}) \circ G(g_{1}))
+    & = F(G(g_{2})) \circ F(G(g_{1})) \\
+    & = (\psi_{d_{3}} \circ g \circ \psi_{d_{2}}^{-1}) \circ (\psi_{d_{2}} \circ f \circ \psi_{d_{1}}^{-1}) \\
+    & = \psi_{d_{3}} \circ g \circ f \circ \psi_{d_{1}}^{-1}.
+  \end{align*}
+  Segue disso que temos a igualdade $G(g_{2} \circ g_{1}) = G(g_{2}) \circ G(g_{1})$; mostrando que $G$ define realmente um funtor.
+
+  Resta agora mostrarmos que $G$ é um quase-inverso para $F$, ou seja, precisamos mostrar que existem isomorfismos naturais de funtores $F \circ G \cong \id_{\mathsf{D}}$ e $G \circ F \cong \id_{\mathsf{C}}$.
+  O primeiro destes é simples, pois o diagrama \eqref{eq:definicao_quase-inverso_morfismos} diz precisamente que o isomorfismo $\psi_{d}: d \to F(G(d))$ depende naturalmente do objeto $d$, portanto a coleção $\{\psi_{d}\}_{d \in \mathsf{D}}$ define um isomorfismo natural de $\id_{\mathsf{D}}$ para $F \circ G$.
+
+  Resta agora construirmos um isomorfismo natural de $\id_{\mathsf{C}}$ para $G \circ F$.
+  Dado um objeto $c \in \mathsf{C}$, considere o isomorfismo $\psi_{F(c)}: F(c) \to F(G(F(c))$.
+  A fidelidade de $F$ garante a existência de um \emph{único} morfismo $\varphi_{c}: c \to G(F(c))$ tal que $F(\varphi_{c}) = \psi_{F(c)}$.
+  Afirmamos que esse morfismo $\varphi_{c}$ é na verdade um isomorfismo.
+  De fato, usando novamente que $F$ é fiel e pleno sabemos que existe um único morfismo no sentido contrário $\theta_{c}: G(F(c)) \to c$ tal que $F(\theta_{c}) = \psi_{F(c)}^{-1}$. Então
+  \begin{displaymath}
+    F(\theta_{c} \circ \varphi_{c}) = F(\theta_{c}) \circ F(\varphi_{c}) = \psi_{F(c)}^{-1} \circ \psi_{F(c)} = \id_{F(c)}
+  \end{displaymath}
+  mas como também temos $F(\id_{c}) = \id_{F(c)}$, a fidelidade de $F$ implica $\theta_{c} \circ \varphi_{c} = \id_{c}$.
+  Um raciocínio análogo mostra que também vale a igualdade $\varphi_{c} \circ \theta_{c} = \id_{c_{F(c)}}$, portanto $\varphi_{c}$ é de fato um isomorfismo.
+
+  Basta então mostrarmos que a coleção de isomorfismos $\{\varphi_{c}: c \to G(F(c))\}_{c \in \mathsf{C}}$ depende naturalmente de $c$.
+  Dado um morfismo $f: c_{1} \to c_{2}$ em $\mathsf{C}$, queremos mostrar que o quadrado abaixo é comutativo.
+  \begin{equation}
+    \label{eq:quadrado_comutativo_objetivo}
+    \begin{tikzcd}[column sep=1.25cm]
+      G(F(c_{1}))
+      \arrow[r, "G(F(f))"]
+      & G(F(c_{2}))
+      \\ c_{1}
+      \arrow[u, "\varphi_{c_{1}}"]
+      \arrow[r, "f" swap]
+      & c_{2}
+      \arrow[u, "\varphi_{c_{2}}" swap]
+    \end{tikzcd}
+  \end{equation}
+  Note que, por conta da fidelidade de $F$, a comutatividade acima seguirá se mostrarmos a igualdade
+  \begin{displaymath}
+    F(G(F(f)) \circ \varphi_{c_{1}}) = F(\varphi_{c_{2}} \circ f),
+  \end{displaymath}
+  a qual é equivalente à igualdade
+  \begin{displaymath}
+    F(G(F(f)) \circ \psi_{F(c_{1})} = \psi_{F(c_{2})} \circ F(f)
+  \end{displaymath}
+  devido à funtorialidade de $F$ e à definição dos morfismos $\varphi_{c_{1}}$ e $\varphi_{c_{2}}$.
+  Note por fim que essa última igualdade é equivalente à comutatividade do quadrado abaixo.
+  \begin{equation}\label{eq:quadrado_comutativo_objetivo_imagem}
+    \begin{tikzcd}[column sep=1.75cm]
+      F(G(F(c_{1})))
+      \arrow[r, "F(G(F(f)))"]
+      & F(G(F(c_{2})))
+      \\ F(c_{1})
+      \arrow[r, "F(f)" swap]
+      \arrow[u, "\psi_{F(c_{1})}"]
+      & F(c_{2})
+      \arrow[u, "\psi_{F(c_{2})}" swap]
+    \end{tikzcd}
+  \end{equation}
+  Ora, se no diagrama comutativo \eqref{eq:definicao_quase-inverso_morfismos} usado para definir a ação de $G$ nos morfismos substituirmos $d_{1} \coloneqq F(c_{1})$, $d_{2} \coloneqq F(c_{2})$ e $g \coloneqq F(f)$ obtemos precisamente o diagrama \eqref{eq:quadrado_comutativo_objetivo_imagem}, o qual deve ser portanto comutativo.
 \end{proof}
 
 \end{document}
